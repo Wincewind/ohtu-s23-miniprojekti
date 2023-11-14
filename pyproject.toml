@@ -6,7 +6,7 @@ authors = ["Tartsi <tarvo.lilja@hotmail.fi>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 flask = "^3.0.0"
 pylint = "^3.0.2"
 sqlalchemy = "^2.0.23"
