@@ -1,7 +1,10 @@
-function App() {
+import AddReferenceForm from "./components/AddReferenceForm"
+
+const App = () => {
   return (
     <div>
-      citation tool
+      <h3>latex citation tool</h3>
+      <AddReferenceForm/>
     </div>
   )
 }
