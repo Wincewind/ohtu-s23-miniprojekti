@@ -1,5 +1,6 @@
 from app import app
 from flask import jsonify, request, send_from_directory
+import dataprocessing
 
 @app.route("/")
 def index():
@@ -15,6 +16,8 @@ def add_reference():
         publisher = request.form ["publisher"]
 
         print(author,title, year, publisher)
+
+        dataprocessing.add_book(author, title, year, publisher)
 
     # data_base_manager.add_reference_to_database(author, title, year, publisher)
     return jsonify({"message": "Reference added"}), 200 # TODO: send return code based on whether the db query was successful
