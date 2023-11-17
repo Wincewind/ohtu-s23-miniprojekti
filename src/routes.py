@@ -14,10 +14,11 @@ def add_reference():
         title = request.form["title"]
         year = request.form ["year"]
         publisher = request.form ["publisher"]
+        publisher_address = request.form ["publisher_address"]
 
-        print(author,title, year, publisher)
+        print(author,title, year, publisher, publisher_address)
 
-        dataprocessing.add_book(author, title, year, publisher)
+        dataprocessing.add_book(author, title, year, publisher, publisher_address)
 
     # data_base_manager.add_reference_to_database(author, title, year, publisher)
     return jsonify({"message": "Reference added"}), 200 # TODO: send return code based on whether the db query was successful

@@ -38,6 +38,11 @@ const Form = () => {
             </label>
             <br />
             <br />
+            <label>
+                Publisher's address: <input name="publisher_address" type="text" />
+            </label>
+            <br />
+            <br />
             <button type="submit">Submit</button>
         </form>
     )
