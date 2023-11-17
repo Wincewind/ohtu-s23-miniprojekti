@@ -13,7 +13,7 @@ CREATE TABLE Books (
     author TEXT NOT NULL,
     title TEXT NOT NULL,
     publisher TEXT NOT NULL,
-    publisher_address TEXT,
+    publisher_address TEXT NOT NULL,
     publication_year INT NOT NULL
 );
 
