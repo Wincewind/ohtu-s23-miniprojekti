@@ -9,7 +9,10 @@ const Form = () => {
                 body: formData,
             })
 
-            if (response.ok) event.target.reset()
+            if (response.ok) {
+                event.target.reset()
+                alert('Reference added!')
+            }
             else console.error('Submit failed:', response)
         } catch (error) {
             console.error('Submit failed:', error)
