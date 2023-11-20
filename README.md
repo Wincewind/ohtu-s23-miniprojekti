@@ -1,6 +1,13 @@
 # ohtu-s23-miniprojekti
 - [Product Backlog](https://docs.google.com/spreadsheets/d/e/2PACX-1vTFMWHkg-GeTz5WsSQdvTTTKeWg1X4EbmagzSqQpQGtWI-dL88LgfhepvqFQfgGQxLHZ2dLskBmxhSG/pubhtml)
 
+### Definition of Done
+- User story acceptance criteria is met.
+- Code is complete and refactored (if needed).
+- Code is peer reviewed.
+- Code is merged and successfully deployed to the development environment.
+- Code is tested.
+
 ## How to setup and run locally (tested in Uni Linux environment, some steps/commands might be different on Windows or Mac):
 1.  Clone the repository or download it as a zip:
 ```bash
