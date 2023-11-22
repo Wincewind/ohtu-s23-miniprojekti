@@ -22,7 +22,8 @@ disable=raw-checker-failed,
         wrong-import-order,
         broad-exception-caught,
         no-else-return,
-        inconsistent-return-statements
+        inconsistent-return-statements,
+        too-few-public-methods
 
 
 [FORMAT]
