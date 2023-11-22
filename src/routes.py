@@ -18,10 +18,11 @@ def add_reference():
 
         print(author,title, year, publisher, publisher_address)
 
-        dataprocessing.add_book(author, title, year, publisher, publisher_address)
-
-    # data_base_manager.add_reference_to_database(author, title, year, publisher)
-    return jsonify({"message": "Reference added"}), 200 # TODO: send return code based on whether the db query was successful
+        if dataprocessing.add_book(author, title, year,
+                                publisher, publisher_address):
+            return jsonify({"message": "Reference added"})
+        else:
+            return jsonify({"message": "Error occurred when adding reference"})
 
 @app.route('/<path:path>')
 def serve_static(path):

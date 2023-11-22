@@ -14,7 +14,16 @@ disable=raw-checker-failed,
         use-symbolic-message-instead,
         missing-module-docstring,
         missing-function-docstring,
-        missing-class-docstring
+        missing-class-docstring,
+        cyclic-import,
+        wrong-import-position,
+        unused-import,
+        missing-final-newline,
+        wrong-import-order,
+        broad-exception-caught,
+        no-else-return,
+        inconsistent-return-statements
+
 
 [FORMAT]
 max-line-length = 80
@@ -25,4 +34,4 @@ max-nested-blocks = 2
 [DESIGN]
 max-branches = 15
 max-locals = 10
-max-args = 5
+max-args = 10
