@@ -9,9 +9,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # add postgresql
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          # postgresql setting
+          POSTGRES_DB: testdb
+          POSTGRES_USER: testdb
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options:
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v4
+      - name: Import testdb seed data
+        run: psql -d postgresql://testdb:password@localhost/testdb -f schema.sql
+        env:
+          PGPASSWORD: password
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
