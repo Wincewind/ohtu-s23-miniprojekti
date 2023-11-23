@@ -6,9 +6,9 @@ Library           Collections
 *** Variables ***
 ${SERVER}         localhost:5000
 ${BROWSER}        Chrome
-${BASE URL}       http://${SERVER}  # Update with the correct URL if needed
+${BASE URL}       http://${SERVER}  
 @{FORM ELEMENTS}  author  title  year  publisher  publisher_address
-@{EXPECTED VALUES}  a  a  2000  a  a
+@{EXPECTED VALUES}  Mariot Tsitoara  Beginning Git and GitHub  2019  APress  One New York Plaza, Suite 4600 New York, NY
 ${DELAY}  0.5 seconds
 
 *** Test Cases ***
@@ -17,7 +17,7 @@ Add Reference Test
     Set Selenium Speed  ${DELAY}
     Input Form Values  ${FORM ELEMENTS}  ${EXPECTED VALUES}
     Submit Form
-    Wait Until Page Contains  Reference added
+    Handle Alert
     Close Browser
 
 *** Keywords ***
