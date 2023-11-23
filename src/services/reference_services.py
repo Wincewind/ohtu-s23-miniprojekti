@@ -4,9 +4,9 @@ import dataprocessing
 
 class ReferenceServices:
 
-    def __init__(self):
+    def __init__(self, dp=dataprocessing):
         # Sets up ReferenceServices-entity
-        pass
+        self.dp = dp
 
     def add_book(self, author, title, year, publisher, publisher_address):
         # REFACTOR: validating the Book object's parameters should
@@ -49,6 +49,6 @@ class ReferenceServices:
         pass
 
     def get_all_references(self):
-        return dataprocessing.get_all_books()
+        return self.dp.get_all_books()
 
 reference_service = ReferenceServices()
