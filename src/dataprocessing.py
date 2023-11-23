@@ -31,11 +31,11 @@ def get_all_books():
                  FROM Books"""),).fetchall()
 
         result = [Book(
-            authors=row['author'],
-            title=row['title'],
-            year=row['publication_year'],
-            publisher=row['publisher'],
-            publisher_address=row['publisher_address']
+            author=row.author,
+            title=row.title,
+            year=row.publication_year,
+            publisher=row.publisher,
+            publisher_address=row.publisher_address
         ) for row in rows]
 
         db.session.commit()

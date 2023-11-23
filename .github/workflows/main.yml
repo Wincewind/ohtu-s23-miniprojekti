@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Import testdb seed data
-        run: psql -d postgresql://testdb:password@localhost/testdb -f schema.sql
+        run: psql -d postgresql://testdb:password@localhost/testdb -f src/tests/test-schema.sql
         env:
           PGPASSWORD: password
       - name: Set up Python 3.10
