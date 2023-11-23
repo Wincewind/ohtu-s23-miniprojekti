@@ -14,6 +14,8 @@ ${DELAY}  0.5 seconds
 *** Test Cases ***
 Add Reference Test
     ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
+    Call Method    ${options}    add_argument    --no-sandbox
+    Call Method  ${options}  add_argument  --headless
     Open Browser  ${BASE URL}  ${BROWSER}  options=${options}
     Set Selenium Speed  ${DELAY}
     Input Form Values  ${FORM ELEMENTS}  ${EXPECTED VALUES}
