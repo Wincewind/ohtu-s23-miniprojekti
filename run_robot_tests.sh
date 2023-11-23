@@ -3,6 +3,9 @@
 # start-pg.sh &
 # käynnistetään Flask-palvelin taustalle
 
+#get env variables from example.env
+mv example.env .env
+
 #poetry run python3 src/index.py &
 poetry run flask --app src/app.py run &
 
