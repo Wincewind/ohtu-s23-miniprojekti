@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
+      - postgre-service-test
   pull_request:
     branches: [main]
 
