@@ -1,6 +1,6 @@
 # import dataprocessings
 from datetime import datetime
-
+import dataprocessing
 
 class ReferenceServices:
 
@@ -9,6 +9,9 @@ class ReferenceServices:
         pass
 
     def add_book(self, author, title, year, publisher, publisher_address):
+        # REFACTOR: validating the Book object's parameters should be done within
+        # book class itself.
+
         # Checks input parameters for potential errors
 
         # Check that all required fields are present
@@ -45,6 +48,5 @@ class ReferenceServices:
         # Gets book by title from database
         pass
 
-    def get_all_books(self):
-        # Gets all books from database and returns them as a list
-        pass
+    def get_all_references(self):
+        return dataprocessing.get_all_books()
