@@ -50,3 +50,5 @@ class ReferenceServices:
 
     def get_all_references(self):
         return dataprocessing.get_all_books()
+    
+reference_service = ReferenceServices()

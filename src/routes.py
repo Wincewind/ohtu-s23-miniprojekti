@@ -1,6 +1,7 @@
 from app import app
 from flask import jsonify, request, send_from_directory
-import dataprocessing
+from services.reference_services import reference_service
+import dataprocessing # REFACTOR: routes.py should only use the services class
 
 
 @app.route("/")
@@ -27,6 +28,9 @@ def add_reference():
         else:
             return jsonify({"message": "Error occurred when adding reference"})
 
+@app.route("/get_all_references")
+def get_all_references():
+    return reference_service.get_all_references()
 
 @app.route('/<path:path>')
 def serve_static(path):
