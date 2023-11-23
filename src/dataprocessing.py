@@ -26,7 +26,8 @@ def get_all_books():
     """Fetch data from db and return a list of Book objects."""
     try:
         rows = db.session.execute(
-            text("""SELECT author, title, publication_year, publisher, publisher_address
+            text("""SELECT
+                 author, title, publication_year, publisher, publisher_address
                  FROM Books"""),).fetchall()
 
         result = [Book(
@@ -39,7 +40,6 @@ def get_all_books():
 
         db.session.commit()
         return result
-    
     except Exception as error:
         print('Error occurred: ', error)
         db.session.rollback()

@@ -9,8 +9,8 @@ class ReferenceServices:
         pass
 
     def add_book(self, author, title, year, publisher, publisher_address):
-        # REFACTOR: validating the Book object's parameters should be done within
-        # book class itself.
+        # REFACTOR: validating the Book object's parameters should
+        # be done within the book class itself.
 
         # Checks input parameters for potential errors
 
