@@ -18,6 +18,7 @@ Add Reference Test
     Input Form Values  ${FORM ELEMENTS}  ${EXPECTED VALUES}
     Submit Form
     Handle Alert
+    Wait Until Page Contains  Reference added
     Close Browser
 
 *** Keywords ***
