@@ -11,4 +11,4 @@ class TestBook(unittest.TestCase):
                          "Upper Saddle River, NJ")
 
     def test_setup(self):
-        self.assertEqual(self.book.author, "Martin, Robert")
+        self.assertEqual(self.book.authors, "Martin, Robert")

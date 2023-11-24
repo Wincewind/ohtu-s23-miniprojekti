@@ -1,36 +1,25 @@
+import React, { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import AddReferenceForm from './components/AddReferenceForm'
-import ReferenceTable from './components/ReferenceList'
-
-const createExampleData = (
-    id,
-    author,
-    title,
-    year,
-    publisher,
-    publisher_address
-) => {
-    return {
-        id,
-        author,
-        title,
-        year,
-        publisher,
-        publisher_address,
-    }
-}
-
-const exampleRows = createExampleData(
-    1,
-    'Martin Robert',
-    'Clean Code: A Handbook of Agile Software Craftsmanship',
-    2000,
-    'Prentice Hall',
-    'Upper Saddle River, NJ',
-    4.3
-)
+import ReferenceTable from './components/ReferenceTable/ReferenceTable'
+import { getAllReferences } from './api/referenceService'
 
 const App = () => {
+    const [rows, setRows] = useState([])
+
+    const fetchData = async () => {
+        try {
+            const data = await getAllReferences()
+            setRows(data)
+        } catch (error) {
+            console.error('Error fetching data: ', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (
         <div>
             <Typography
@@ -42,10 +31,10 @@ const App = () => {
                 latex citation tool
             </Typography>
             <br />
-            <AddReferenceForm />
+            <AddReferenceForm onReferenceAdded={fetchData} />
             <br />
             <br />
-            <ReferenceTable rows={[exampleRows]} />
+            <ReferenceTable rows={rows} />
         </div>
     )
 }

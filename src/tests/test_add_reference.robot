@@ -4,7 +4,7 @@ Suite Setup  Open And Configure Browser
 Suite Teardown  Close Browser
 
 *** Variables ***
-@{FORM ELEMENTS}  author  title  year  publisher  publisher_address
+@{FORM ELEMENTS}  authors  title  year  publisher  publisher_address
 @{EXPECTED VALUES}  Mariot Tsitoara  Beginning Git and GitHub  2019  APress  One New York Plaza, Suite 4600 New York, NY
 ${DELAY}  0.5 seconds
 
