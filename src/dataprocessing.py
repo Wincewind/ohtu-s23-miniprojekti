@@ -24,14 +24,17 @@ def add_book(authors, title, year, publisher, publisher_address):
 
 
 def get_all_books():
-    """Fetch data from db and return a list of Book objects."""
+    """Fetch data from db and return a list of dictionaries."""
     try:
         rows = db.session.execute(
             text("""SELECT
-                 author, title, publication_year, publisher, publisher_address
+                 id, author, title, publication_year, publisher, publisher_address
                  FROM Books"""),).mappings().all()
 
+        # REFACTOR: what is the purpose of creating Book objects
+        # if none are returned and data is already validated?
         result = [Book(
+            id=row.id,
             authors=row.author,
             title=row.title,
             year=row.publication_year,
@@ -47,4 +50,4 @@ def get_all_books():
     except Exception as error:
         print('Error occurred: ', error)
         db.session.rollback()
-        return []  # Return empty list for consitencys sake
+        return []
