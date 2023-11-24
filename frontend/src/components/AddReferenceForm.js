@@ -1,28 +1,25 @@
-const Form = () => {
+import { addReference } from '../api/referenceService'
+
+const Form = ({ onReferenceAdded: fetchReferences }) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         const formData = new FormData(event.target)
 
         try {
-            const response = await fetch('/add_reference', {
-                method: 'POST',
-                body: formData,
-            })
-
-            if (response.ok) {
-                event.target.reset()
-                alert('Reference added!')
-            }
-            else console.error('Submit failed:', response)
+            await addReference(formData)
+            event.target.reset()
+            fetchReferences()
+            alert('Reference added!')
         } catch (error) {
             console.error('Submit failed:', error)
+            alert('Submit failed.')
         }
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <label>
-                Author: <input name="author" type="text" />
+                Authors: <input name="authors" type="text" />
             </label>
             <br />
             <br />
@@ -42,7 +39,8 @@ const Form = () => {
             <br />
             <br />
             <label>
-                Publisher's address: <input name="publisher_address" type="text" />
+                Publisher's address:
+                <input name="publisher_address" type="text" />
             </label>
             <br />
             <br />

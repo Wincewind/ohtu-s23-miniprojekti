@@ -3,7 +3,7 @@ from db import db
 from entities.reference import Book
 
 
-def add_book(author, title, year, publisher, publisher_address):
+def add_book(authors, title, year, publisher, publisher_address):
     # inserting the new book into Books table
     try:
         db.session.execute(
@@ -12,7 +12,7 @@ def add_book(author, title, year, publisher, publisher_address):
             (author, title, publication_year, publisher, publisher_address)
             VALUES
             (:author, :title, :year, :publisher, :publisher_address)"""),
-            {"author": author, "title": title, "year": year,
+            {"author": authors, "title": title, "year": year,
              "publisher": publisher, "publisher_address": publisher_address}
         )
         db.session.commit()
@@ -29,7 +29,7 @@ def get_all_books():
         rows = db.session.execute(
             text("""SELECT
                  author, title, publication_year, publisher, publisher_address
-                 FROM Books"""),).fetchall()
+                 FROM Books"""),).mappings().all()
 
         result = [Book(
             authors=row.author,
@@ -40,8 +40,11 @@ def get_all_books():
         ) for row in rows]
 
         db.session.commit()
-        return result
+        result_dicts = [book.__dict__ for book in result]
+
+        return result_dicts
+
     except Exception as error:
         print('Error occurred: ', error)
         db.session.rollback()
-        return []  # Return empty list for consistencys sake
+        return []  # Return empty list for consitencys sake
