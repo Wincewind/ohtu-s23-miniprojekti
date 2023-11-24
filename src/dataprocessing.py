@@ -31,22 +31,21 @@ def get_all_books():
                  id, author, title, publication_year, publisher, publisher_address
                  FROM Books"""),).mappings().all()
 
-        # REFACTOR: what is the purpose of creating Book objects
-        # if none are returned and data is already validated?
-        result = [Book(
-            id=row.id,
-            authors=row.author,
-            title=row.title,
-            year=row.publication_year,
-            publisher=row.publisher,
-            publisher_address=row.publisher_address
-        ) for row in rows]
+        result_dicts = [
+            {
+                'book_id': row.id,
+                'authors': row.author,
+                'title': row.title,
+                'year': row.publication_year,
+                'publisher': row.publisher,
+                'publisher_address': row.publisher_address
+            }
+            for row in rows
+        ]
 
         db.session.commit()
-        result_dicts = [book.__dict__ for book in result]
 
         return result_dicts
-
     except Exception as error:
         print('Error occurred: ', error)
         db.session.rollback()
