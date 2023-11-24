@@ -27,7 +27,7 @@ disable=raw-checker-failed,
 
 
 [FORMAT]
-max-line-length = 80
+max-line-length = 110
 
 [REFACTORING]
 max-nested-blocks = 2

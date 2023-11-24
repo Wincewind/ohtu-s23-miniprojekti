@@ -1,6 +1,6 @@
-# import dataprocessings
-from datetime import datetime
+from entities.reference import Book
 import dataprocessing
+
 
 class ReferenceServices:
 
@@ -8,41 +8,23 @@ class ReferenceServices:
         # Sets up ReferenceServices-entity
         self.dp = dp
 
-    def add_book(self, author, title, year, publisher, publisher_address):
-        # REFACTOR: validating the Book object's parameters should
-        # be done within the book class itself.
+    def add_book(self, authors, title, year, publisher, publisher_address):
 
-        # Checks input parameters for potential errors
+        try:
 
-        # Check that all required fields are present
-        if not all([author, title, year, publisher, publisher_address]):
-            print("All fields are required!")
+            new_book = Book(authors, title, year, publisher, publisher_address)
+
+            # Search for a duplicate title in the database
+            # if self.get_book_by_title is not None:
+            #     print("Book already exists in the database")
+            #     raise Exception("Book already exists in the database) TODO
+
+            self.dp.add_book(new_book.authors, new_book.title,
+                             new_book.year, new_book.publisher, new_book.publisher_address)
+            return True
+        except Exception as error:
+            print("Error adding book to database", error)
             return False
-
-        # Check that all 'Text' fields are string
-        if not isinstance(author, str) or \
-                not isinstance(title, str) or \
-                not isinstance(publisher, str) or \
-                not isinstance(publisher_address, str):
-            print("Author, title, publisher and address must be strings")
-            return False
-
-        # Check that years are integers
-        if isinstance(year, int) is False:
-            print("Year must be an integer")
-            return False
-
-        # Check that year is in valid range
-        if year < 1440 or year > datetime.now().year:
-            print("Year is out of valid range")
-            return False
-
-        # Search for a duplicate title in the database
-        # if self.get_book_by_title is not None:
-        #     print("Book already exists in the database")
-        #     return False TODO
-
-        return True
 
     def get_book_by_title(self):
         # Gets book by title from database
@@ -50,5 +32,6 @@ class ReferenceServices:
 
     def get_all_references(self):
         return self.dp.get_all_books()
+
 
 reference_service = ReferenceServices()

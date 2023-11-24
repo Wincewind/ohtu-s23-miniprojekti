@@ -22,6 +22,7 @@ def add_book(authors, title, year, publisher, publisher_address):
         db.session.rollback()
         return False
 
+
 def get_all_books():
     """Fetch data from db and return a list of Book objects."""
     try:
@@ -46,3 +47,4 @@ def get_all_books():
     except Exception as error:
         print('Error occurred: ', error)
         db.session.rollback()
+        return []  # Return empty list for consitencys sake
