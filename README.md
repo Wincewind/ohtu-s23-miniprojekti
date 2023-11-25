@@ -11,6 +11,13 @@
 - Code is merged and successfully deployed to the development environment.
 - Code is tested.
 
+### Acceptance criteria
+As a User, I want to be able to list my references in human-readable form
+- The user can see all the added references in the UI.
+- The frontend fetches the references from backend.
+- Backend gets the data from the database.
+- Newly added references can be seen without the need to update the page.
+
 ## How to setup and run locally (tested in Uni Linux environment, some steps/commands might be different on Windows or Mac):
 1.  Clone the repository or download it as a zip:
 ```bash
