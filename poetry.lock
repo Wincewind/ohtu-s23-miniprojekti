@@ -355,13 +355,13 @@ files = [
 
 [[package]]
 name = "idna"
-version = "3.5"
+version = "3.6"
 description = "Internationalized Domain Names in Applications (IDNA)"
 optional = false
 python-versions = ">=3.5"
 files = [
-    {file = "idna-3.5-py3-none-any.whl", hash = "sha256:79b8f0ac92d2351be5f6122356c9a592c96d81c9a79e4b488bf2a6a15f88057a"},
-    {file = "idna-3.5.tar.gz", hash = "sha256:27009fe2735bf8723353582d48575b23c533cc2c2de7b5a68908d91b5eb18d08"},
+    {file = "idna-3.6-py3-none-any.whl", hash = "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"},
+    {file = "idna-3.6.tar.gz", hash = "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"},
 ]
 
 [[package]]
@@ -373,6 +373,17 @@ python-versions = ">=3.7"
 files = [
     {file = "iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"},
     {file = "iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3"},
+]
+
+[[package]]
+name = "invoke"
+version = "2.2.0"
+description = "Pythonic task execution"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "invoke-2.2.0-py3-none-any.whl", hash = "sha256:6ea924cc53d4f78e3d98bc436b08069a03077e6f85ad1ddaa8a116d7dad15820"},
+    {file = "invoke-2.2.0.tar.gz", hash = "sha256:ee6cbb101af1a859c7fe84f2a264c059020b0cb7fe3535f9424300ab568f6bd5"},
 ]
 
 [[package]]
@@ -763,13 +774,13 @@ files = [
 
 [[package]]
 name = "robotframework-seleniumlibrary"
-version = "6.1.3"
+version = "6.2.0"
 description = "Web testing library for Robot Framework"
 optional = false
 python-versions = ">=3.6, <4"
 files = [
-    {file = "robotframework-seleniumlibrary-6.1.3.tar.gz", hash = "sha256:2cbe8954c7201c510a1d197381aace6f3a9a8a4b0abea3fa13f4d947fe47ea49"},
-    {file = "robotframework_seleniumlibrary-6.1.3-py2.py3-none-any.whl", hash = "sha256:078649982b535be21a44def15da609d6b9518e47bdfb71e9c2a8e0ab0c7f5556"},
+    {file = "robotframework-seleniumlibrary-6.2.0.tar.gz", hash = "sha256:12f78f1604e4d0378bd59abaa143192f1ffa6ad165d0a68947e62981f1588efa"},
+    {file = "robotframework_seleniumlibrary-6.2.0-py2.py3-none-any.whl", hash = "sha256:ef05182a535cf7acf5d09fe4214e1854dfd9c26ff0c8980ad6dedecd2bb5038d"},
 ]
 
 [package.dependencies]
@@ -1025,4 +1036,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "916ee9fd0d34f3fdb4d015b59a6b4b3799aad44292844ceb43db2eebdafc4b9d"
+content-hash = "74c31815c124568e63995d8c75034a5d167e51b5f11e12f2aa1dc9448d771403"
