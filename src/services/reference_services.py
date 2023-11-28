@@ -26,9 +26,9 @@ class ReferenceServices:
             print("Error adding book to database", error)
             return False
 
-    def get_book_by_title(self):
-        # Gets book by title from database
-        pass
+    # def get_book_by_title(self):
+    #     # Gets book by title from database
+    #     pass
 
     def get_all_references(self):
         return self.dp.get_all_books()
