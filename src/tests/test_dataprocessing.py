@@ -19,4 +19,10 @@ class TestDataProcessing(unittest.TestCase):
 
     def test_get_all_books(self):
         with app.app_context():
-            self.assertGreater(len(dataprocessing.get_all_books()), 0)
+            self.assertEqual(len(dataprocessing.get_all_books()), 0)
+
+    def test_delete_all_books(self):
+        with app.app_context():
+            dataprocessing.add_book(
+                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+            self.assertEqual([], dataprocessing.delete_all_books())
