@@ -7,7 +7,8 @@ from invoke import task
 @task
 def build_frontend(ctx):
     os.chdir('frontend')
-    ctx.run('npm install', pty=True)
+    ctx.run('npm ci', pty=True)
+    ctx.run('npm run build', pty=True)
     os.chdir('..')
 
 
