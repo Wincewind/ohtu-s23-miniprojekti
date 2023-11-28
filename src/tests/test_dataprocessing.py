@@ -1,3 +1,4 @@
+import os
 import unittest
 from unittest.mock import patch
 import dataprocessing
@@ -5,8 +6,12 @@ from app import app
 
 
 class TestDataProcessing(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        os.system("psql -c 'create database testdb;'")
+
     def setUp(self):
-        pass
+        os.system("psql -d testdb -f src/tests/test-schema.sql")
 
     def test_add_book(self):
         with app.app_context():
@@ -20,7 +25,7 @@ class TestDataProcessing(unittest.TestCase):
 
     def test_get_all_books(self):
         with app.app_context():
-            self.assertEqual(len(dataprocessing.get_all_books()), 0)
+            self.assertEqual(len(dataprocessing.get_all_books()), 2)
 
     @patch('dataprocessing.db.session.execute')
     def test_fail_to_get_all_books(self, mock_execute):
