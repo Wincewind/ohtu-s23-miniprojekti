@@ -11,7 +11,7 @@ class TestDataProcessing(unittest.TestCase):
         os.system("psql -c 'create database testdb;'")
 
     def setUp(self):
-        os.system("psql -d testdb -f src/tests/test-schema.sql")
+        os.system(f"psql -d {os.getenv("DATABASE_URL")} -f src/tests/test-schema.sql")
 
     def test_add_book(self):
         with app.app_context():
