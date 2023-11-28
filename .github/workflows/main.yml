@@ -48,7 +48,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Build frontend
-        run: invoke build-frontend
+        run: poetry run invoke build-frontend
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Run robot tests
