@@ -19,7 +19,7 @@ CREATE TABLE Books (
 
 CREATE TABLE UserBooks (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES Users(id),
-    book_id INT NOT NULL REFERENCES Books(id),
+    user_id INT NOT NULL REFERENCES Users(id) ON DELETE CASCADE,
+    book_id INT NOT NULL REFERENCES Books(id) ON DELETE CASCADE,
     UNIQUE(user_id, book_id)
 );

@@ -4,7 +4,7 @@ from entities.reference import Book
 
 
 def add_book(authors, title, year, publisher, publisher_address):
-    # inserting the new book into Books table
+    """Insert a new book into the Books table."""
     try:
         db.session.execute(
             text("""INSERT
@@ -24,7 +24,7 @@ def add_book(authors, title, year, publisher, publisher_address):
 
 
 def get_all_books():
-    """Fetch data from db and return a list of dictionaries."""
+    """Fetch data from database and return a list of dictionaries."""
     try:
         rows = db.session.execute(
             text("""SELECT
@@ -50,3 +50,16 @@ def get_all_books():
         print('Error occurred: ', error)
         db.session.rollback()
         return []
+
+
+def delete_all_books():
+    """Delete all books from Books-table and return an empty list."""
+    try:
+        db.session.execute(text("""DELETE FROM Books"""))
+        db.session.commit()
+        return []
+
+    except Exception as error:
+        print("Error occurred: ", error)
+        db.session.rollback()
+        return get_all_books()
