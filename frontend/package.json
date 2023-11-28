@@ -21,7 +21,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "react-scripts build && shx rm -rf ../src/build/* && shx cp -r build/* ../src/build/",
+        "build": "react-scripts build && shx mkdir -p ../src/build/ && shx rm -rf ../src/build/* && shx cp -r build/* ../src/build/",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
