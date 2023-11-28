@@ -10,27 +10,12 @@ import Paper from '@mui/material/Paper'
 import Checkbox from '@mui/material/Checkbox'
 import ReferenceTableHead from './ReferenceTableHead'
 import ReferenceTableToolbar from './ReferenceTableToolbar'
-
-const descendingComparator = (a, b, orderBy) => {
-    if (b[orderBy] < a[orderBy]) {
-        return -1
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1
-    }
-    return 0
-}
-
-const getComparator = (order, orderBy) =>
-    order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy)
-
+import { getComparator } from './referenceTableUtil'
 
 const ReferenceTable = (props) => {
     const { rows } = props
-    const [order, setOrder] = React.useState('asc')
-    const [orderBy, setOrderBy] = React.useState('calories')
+    const [order, setOrder] = React.useState('desc')
+    const [orderBy, setOrderBy] = React.useState('book_id')
     const [selected, setSelected] = React.useState([])
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(10)
