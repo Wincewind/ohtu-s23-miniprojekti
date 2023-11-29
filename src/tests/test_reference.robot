@@ -1,6 +1,7 @@
 *** Settings ***
 Resource  resource.robot
 Suite Setup  Open And Configure Browser
+Test Setup    Reset Application And Reload Page
 Suite Teardown  Close Browser
 
 *** Variables ***
@@ -10,19 +11,28 @@ Suite Teardown  Close Browser
 ${DELAY}  0.5 seconds
 
 *** Test Cases ***
-# Add Reference Test
-#     Input Form Values  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
-#     Submit Form
-#     Handle Alert
+User Can Add Reference To The App
+    Compare Row Count To Expected    0
+    Input Form Values  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
+    Submit Form
+    Handle Alert
+    Compare Row Count To Expected    1
+    Compare Row Values To Expected    ${EXPECTED VALUES 1}    2
 
-User Can See All The Added References In The UI
-    #Should Be Equal As Strings    Mariot Tsitoara    ${EXPECTED VALUES 1}[0]
-    #Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
-    #Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
-    #${row1_author}=  Get Table Cell    locator=//table[@class='MuiTable-root css-1q7lp8d']    row=2    column=2
-    ${row1_author}=  Get Table Cell    locator=//table[1]    row=2    column=2
-    Should Be Equal As Strings    ${row1_author}    ${EXPECTED VALUES 1}[0]
-    #Table Should Contain    //table[1]    ${EXPECTED VALUES 1}[0] ${EXPECTED VALUES 1}[1]
+User Cannot Input Reference With Missing Data
+    Submit Form
+    ${message} =    Handle Alert    LEAVE   # Leave alert open and get its message.
+    Should Be Equal As Strings    ${message}    Submit failed.
+    Handle Alert
+    Compare Row Count To Expected    0
+
+
+User Can See The Latest Reference First
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
+    Compare Row Count To Expected    2
+    Compare Row Values To Expected    ${EXPECTED VALUES 1}    2
+    Compare Row Values To Expected    ${EXPECTED VALUES 2}    3
 
 *** Keywords ***
 Input Form Values
@@ -39,3 +49,19 @@ Submit Form And Handle Alert
     Input Form Values  ${form_elements}  ${values}
     Submit Form
     Handle Alert
+
+Reset Application And Reload Page
+    Reset Application
+    Reload Page
+
+Compare Row Count To Expected
+    [Arguments]  ${expected_row_count}
+    ${row_count}=    Get Element Count  //table[1]/tbody/tr
+    Should Be Equal As Numbers    ${row_count}    ${expected_row_count}
+
+Compare Row Values To Expected
+    [Arguments]  ${expected_values}  ${row_num}
+    FOR  ${index}  IN RANGE  ${expected_values.__len__()}
+        ${index}=    Evaluate    ${index} + 2
+        ${value}=    Get Table Cell    locator=//table[1]    row=${row_num}    column=${index}
+    END
