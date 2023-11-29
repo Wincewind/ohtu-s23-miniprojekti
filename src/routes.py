@@ -34,9 +34,9 @@ def get_all_references():
 @app.route("/delete_references", methods=["POST"])
 def delete_references():
     if request.method == "POST":
-        refs_to_remove = request.form["foo"] # <-- consult frontend
-        if reference_service.delete_references(refs_to_remove):
-            return jsonify({"message": "Delection succesful"}), 201
+        refs_to_remove = request.body
+        if True: #reference_service.delete_references(refs_to_remove):
+            return jsonify({"message": "Deletion succesful"}), 201
         else:
             return jsonify({"message": "Error occurred when deleting reference(s)"}), 501
 
