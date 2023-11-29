@@ -31,10 +31,14 @@ export const getAllReferences = async () => {
     }
 }
 
-export const deleteReferencesInArray = async () => {
+export const deleteReferencesInArray = async (references) => {
     try {
         const response = await fetch('/delete_references', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(references),
         })
 
         if (!response.ok) {
