@@ -11,7 +11,8 @@ class TestDataProcessing(unittest.TestCase):
         os.system("psql -c 'create database testdb;'")
 
     def setUp(self):
-        os.system(f"psql -d {os.getenv('DATABASE_URL')} -f src/tests/test-schema.sql")
+        os.system(f"psql -d {os.getenv('DATABASE_URL')
+                             } -f src/tests/test-schema.sql")
 
     def test_add_book(self):
         with app.app_context():
@@ -48,3 +49,11 @@ class TestDataProcessing(unittest.TestCase):
             result = dataprocessing.delete_all_books()
             self.assertEqual(result, [])
             self.assertEqual(mock_execute.call_count, 2)
+
+    # def test_get_book_by_title(self):
+    #     # Solution here
+    #     pass
+
+    # def test_fail_get_book_by_title(self):
+          # Solution
+    #     pass

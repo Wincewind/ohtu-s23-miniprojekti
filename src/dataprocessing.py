@@ -63,3 +63,11 @@ def delete_all_books():
         print("Error occurred: ", error)
         db.session.rollback()
         return get_all_books()
+
+
+# def get_book_by_title(title):
+#     """Docstring here"""
+#     try:
+#         pass  # Solution here
+#     except:
+#         pass  # Solution here
