@@ -22,16 +22,23 @@ def add_reference():
 
         if reference_service.add_book(authors, title, year,
                                       publisher, publisher_address):
-            # Frontend response still wrong ('Reference added!') even after statuscodes
             return jsonify({"message": "Reference added"}), 201
         else:
-            # Frontend response still wrong ('Reference added!') even after statuscodes
             return jsonify({"message": "Error occurred when adding reference"}), 501
 
 
 @app.route("/get_all_references")
 def get_all_references():
     return reference_service.get_all_references()
+
+@app.route("/delete_references", methods=["POST"])
+def delete_references():
+    if request.method == "POST":
+        refs_to_remove = request.form["foo"] # <-- consult frontend
+        if reference_service.delete_references(refs_to_remove):
+            return jsonify({"message": "Delection succesful"}), 201
+        else:
+            return jsonify({"message": "Error occurred when deleting reference(s)"}), 501
 
 
 @app.route('/<path:path>')
