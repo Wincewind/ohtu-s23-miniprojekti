@@ -13,7 +13,7 @@ import ReferenceTableToolbar from './ReferenceTableToolbar'
 import { getComparator } from './referenceTableUtil'
 
 const ReferenceTable = (props) => {
-    const { rows } = props
+    const { rows, onDelete } = props
     const [order, setOrder] = React.useState('desc')
     const [orderBy, setOrderBy] = React.useState('book_id')
     const [selected, setSelected] = React.useState([])
@@ -28,7 +28,7 @@ const ReferenceTable = (props) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.id)
+            const newSelected = rows.map((n) => n.book_id)
             setSelected(newSelected)
             return
         }
@@ -81,7 +81,11 @@ const ReferenceTable = (props) => {
     return (
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
-                <ReferenceTableToolbar numSelected={selected.length} />
+                <ReferenceTableToolbar
+                    numSelected={selected.length}
+                    selected={selected}
+                    onDelete={onDelete}
+                />
                 <TableContainer>
                     <Table
                         sx={{ minWidth: 750 }}
@@ -98,14 +102,14 @@ const ReferenceTable = (props) => {
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
-                                const isItemSelected = isSelected(row.id)
+                                const isItemSelected = isSelected(row.book_id)
                                 const labelId = `enhanced-table-checkbox-${index}`
 
                                 return (
                                     <TableRow
                                         hover
                                         onClick={(event) =>
-                                            handleClick(event, row.id)
+                                            handleClick(event, row.book_id)
                                         }
                                         role="checkbox"
                                         aria-checked={isItemSelected}
