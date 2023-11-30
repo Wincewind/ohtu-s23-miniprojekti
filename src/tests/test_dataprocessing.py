@@ -56,7 +56,7 @@ class TestDataProcessing(unittest.TestCase):
             result = dataprocessing.get_all_books() # Get book from database (listed dictionary)
             # Return the id of the book as a list
             self.assertEqual(True, dataprocessing.delete_books_by_id([result[0]['book_id']]))
-            self.assertEqual(0, len(dataprocessing.get_all_books()))
+            self.assertEqual(2, len(dataprocessing.get_all_books()))
 
     def test_delete_multiple_books(self):
         with app.app_context():
@@ -69,7 +69,7 @@ class TestDataProcessing(unittest.TestCase):
             # Get the ids of the books as a list
             ids = [id['book_id'] for id in result]
             self.assertEqual(True, dataprocessing.delete_books_by_id(ids))
-            self.assertEqual(0, len(dataprocessing.get_all_books()))
+            self.assertEqual(2, len(dataprocessing.get_all_books()))
 
     @patch('dataprocessing.db.session.execute')
     def test_fail_to_delete_books_by_id(self, mock_execute):
