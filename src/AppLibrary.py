@@ -6,7 +6,7 @@ class AppLibrary:
         self.reset_application()
 
     def reset_application(self):
-        os.system("psql -f schema.sql")
+        os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -f')} schema.sql")
 
     def load_test_data(self):
-        os.system("psql -f tests/test-schema.sql")
+        os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -f')} tests/test-schema.sql")
