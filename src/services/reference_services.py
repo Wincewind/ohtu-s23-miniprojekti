@@ -8,8 +8,8 @@ class ReferenceServices:
         # Sets up ReferenceServices-entity
         self.dp = dp
 
-    def add_book(self, authors, title, year, publisher, publisher_address):
-
+    def add_book(self, authors: str, title: str, year: int, publisher: str, publisher_address: str) -> bool:
+        """Adds a new book to the Books table."""
         try:
 
             new_book = Book(authors, title, year, publisher, publisher_address)
@@ -31,7 +31,16 @@ class ReferenceServices:
     #     pass
 
     def get_all_references(self):
+        """Gets all books from the Books table."""
         return self.dp.get_all_books()
+
+    def delete_all_books(self):
+        """Removes all books from the Books table."""
+        return self.dp.delete_all_books()
+
+    def delete_books_by_id(self, book_ids: list[int]) -> bool:
+        """Deletes books from the Books table based on book ids on a list."""
+        return self.dp.delete_books_by_id(book_ids)
 
 
 reference_service = ReferenceServices()

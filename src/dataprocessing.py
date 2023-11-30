@@ -63,3 +63,27 @@ def delete_all_books():
         print("Error occurred: ", error)
         db.session.rollback()
         return get_all_books()
+
+
+def delete_books_by_id(book_id: list[int]):
+    """Delete books from Books-table based on book ids on a list."""
+    try:
+
+        if len(book_id) == 1:
+            db.session.execute(text("DELETE FROM Books WHERE id = :book_id"), {
+                               "book_id": book_id[0]})
+            db.session.commit()
+            return True
+        else:
+            book_id_strings = ", ".join(
+                [f":book_id_{i}" for i in range(len(book_id))])
+            sql_query = f"DELETE FROM Books WHERE id IN ({book_id_strings})"
+            id_string_parameters = {f"book_id_{i}": id
+                                    for i, id in enumerate(book_id)}
+            db.session.execute(text(sql_query), id_string_parameters)
+            db.session.commit()
+            return True
+    except Exception as error:
+        print("Exception occurred: ", error)
+        db.session.rollback()
+        return False
