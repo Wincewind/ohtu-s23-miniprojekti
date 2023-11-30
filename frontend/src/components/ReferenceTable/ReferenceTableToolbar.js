@@ -7,9 +7,19 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterListIcon from '@mui/icons-material/FilterList'
+import { deleteReferencesInArray } from '../../api/referenceService'
 
 const ReferenceTableToolbar = (props) => {
-    const { numSelected } = props
+    const { numSelected, selected, onDelete: fetchReferences } = props
+
+    const handleDelete = async () => {
+        try {
+            await deleteReferencesInArray(selected)
+            await fetchReferences()
+        } catch (error) {
+            console.error('Error fetching data: ', error)
+        }
+    }
 
     return (
         <Toolbar
@@ -47,7 +57,7 @@ const ReferenceTableToolbar = (props) => {
 
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
-                    <IconButton>
+                    <IconButton onClick={handleDelete}>
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
@@ -64,6 +74,8 @@ const ReferenceTableToolbar = (props) => {
 
 ReferenceTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
+    selected: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
 }
 
 export default ReferenceTableToolbar
