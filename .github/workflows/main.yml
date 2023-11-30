@@ -59,9 +59,22 @@ jobs:
 
       - name: Build frontend
         run: poetry run invoke build-frontend
+  
+  run tests and generate reports:
+    needs: build
+    runs-on: ubuntu-latest
 
-      - name: Run tests
-        run: poetry run coverage run --branch -m pytest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-artifacts
+
+    - name: Run tests
+      run: poetry run coverage run --branch -m pytest
 
       - name: Run robot tests
         run: bash run_robot_tests.sh
@@ -71,6 +84,6 @@ jobs:
 
       - name: Coverage report to Codecov
         run: bash <(curl -s https://codecov.io/bash)
-        
+
       - name: Run pylint
         run: poetry run pylint src/
