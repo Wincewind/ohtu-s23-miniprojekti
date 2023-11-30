@@ -38,8 +38,8 @@ jobs:
       - name: Create .env file
         run: |
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
-          echo "DATABASE_URL=${{ variables.DATABASE_URL }}" >> .env
-          echo "PSQL_SCHEMA_COMMAND=${{ variables.PSQL_SCHEMA_COMMAND }}" >> .env
+          echo "DATABASE_URL=${{ vars.DATABASE_URL }}" >> .env
+          echo "PSQL_SCHEMA_COMMAND=${{ vars.PSQL_SCHEMA_COMMAND }}" >> .env
       
       - name: Copy .env to .env.test
         run: cp .env .env.test
