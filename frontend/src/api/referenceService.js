@@ -30,3 +30,24 @@ export const getAllReferences = async () => {
         throw error
     }
 }
+
+export const deleteReferencesInArray = async (references) => {
+    try {
+        const response = await fetch('/delete_references', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(references),
+        })
+
+        if (!response.ok) {
+            throw new Error(
+                'Failed to delete references: ' + response.statusText
+            )
+        }
+        return response
+    } catch (error) {
+        throw error
+    }
+}

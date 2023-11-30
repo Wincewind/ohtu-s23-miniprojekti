@@ -34,7 +34,7 @@ const App = () => {
             <AddReferenceForm onReferenceAdded={fetchData} />
             <br />
             <br />
-            <ReferenceTable rows={rows} />
+            <ReferenceTable rows={rows} onDelete={fetchData} />
         </div>
     )
 }
