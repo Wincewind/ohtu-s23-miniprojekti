@@ -7,6 +7,10 @@ class TestReferenceService(unittest.TestCase):
     def setUp(self):
         self.mock_dataprocessing = mock.Mock()
         self.mock_dataprocessing.get_all_books()
+
+        '''setting return value to False indicating that a book with the same title do not exist in beginning'''
+        self.mock_dataprocessing.get_book_by_title.return_value = False
+        
         self.ref_ser = ReferenceServices(self.mock_dataprocessing)
 
     def test_add_valid_book(self):
@@ -32,3 +36,15 @@ class TestReferenceService(unittest.TestCase):
     def test_get_all_references_calls_get_all_books(self):
         self.ref_ser.get_all_references()
         self.mock_dataprocessing.get_all_books.assert_called()
+    
+    def test_add_booktitle_twice(self):
+        self.assertTrue(self.ref_ser.add_book('Garwin, Robert',
+                                              'Clean Code: A Handbook of Agile Software Craftsmanship',
+                                              2008, 'Prentice Hall', 'Bakerstreet 123'))
+        
+        '''setting return value to True indicating that a book with the same title do exist after added title'''
+        self.mock_dataprocessing.get_book_by_title.return_value = True
+        
+        self.assertFalse(self.ref_ser.add_book('Garwin, Robert',
+                                               'Clean Code: A Handbook of Agile Software Craftsmanship',
+                                               2008, 'Prentice Hall', 'Bakerstreet 123'))

@@ -48,3 +48,13 @@ class TestDataProcessing(unittest.TestCase):
             result = dataprocessing.delete_all_books()
             self.assertEqual(result, [])
             self.assertEqual(mock_execute.call_count, 2)
+
+    def test_get_book_by_title(self):
+        with app.app_context():
+            dataprocessing.add_book(
+                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+            self.assertEqual(True, dataprocessing.get_book_by_title("My Life"))
+
+    def test_fail_to_get_book_by_title(self):
+        with app.app_context():
+            self.assertEqual(False, dataprocessing.get_book_by_title("Your Life"))

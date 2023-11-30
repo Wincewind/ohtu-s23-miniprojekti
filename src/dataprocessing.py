@@ -87,3 +87,23 @@ def delete_books_by_id(book_id: list[int]):
         print("Exception occurred: ", error)
         db.session.rollback()
         return False
+    
+def get_book_by_title(title):
+    """Return True if title found and False if not"""
+    try:
+        query = text("""SELECT
+                     id, author, title, publication_year, publisher, publisher_address
+                     FROM Books WHERE title = :title""")
+        
+        result = db.session.execute(query, {'title': title})
+        book = result.fetchone()
+        result.close()
+        
+        if book:
+            return True
+        else:
+            return False
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
