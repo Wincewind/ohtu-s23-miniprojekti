@@ -85,6 +85,7 @@ const ReferenceTable = (props) => {
                     numSelected={selected.length}
                     selected={selected}
                     onDelete={onDelete}
+                    rows={rows}
                 />
                 <TableContainer>
                     <Table
