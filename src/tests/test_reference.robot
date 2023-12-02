@@ -8,7 +8,7 @@ Suite Teardown  Close Browser
 @{FORM ELEMENTS}  authors  title  year  publisher  publisher_address
 @{EXPECTED VALUES 1}  Mariot Tsitoara  Beginning Git and GitHub  2019  APress  One New York Plaza, Suite 4600 New York, NY
 @{EXPECTED VALUES 2}  Hawking, Stephen  A Brief History of Time: From the Big Bang to Black Holes  1988  Bantam  Random House Academic Marketing, 1745 Broadway, 20th Floor, New York
-${DELAY}  0.5 seconds
+${DELAY}  0.005 seconds  # set this to 0.3-0.5 if you disabled --headless in resource.robot
 
 *** Test Cases ***
 User Can Add Reference To The App
@@ -36,9 +36,16 @@ User Can See The Latest Reference First
 User Can Delete One Reference
     Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
     Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
-    Select And Delete Reference  1
+    Select And Delete Reference  2  # delete second reference
     Compare Row Count To Expected    1
     Compare Row Values To Expected    ${EXPECTED VALUES 1}    1
+
+User Can Delete All References
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
+    Select All References
+    Delete References
+    Compare Row Count To Expected    0
 
 *** Keywords ***
 Input Form Values
@@ -72,17 +79,21 @@ Compare Row Values To Expected
         ${value}=    Get Table Cell    locator=//table[1]    row=${row_num}    column=${index}
     END
 
-Select Reference
+Select One Reference
     [Arguments]  ${row_index}
-    ${checkbox}=    Set Variable    //table[1]//tr[${row_index}]//input[@type='checkbox']
-    Click Element    ${checkbox}
+    ${adjusted_index}=   Evaluate    ${row_index}
+    ${locator}=    Set Variable    //table[1]//tr[${adjusted_index}]//input[@type='checkbox']
+    Select Checkbox   ${locator}
 
-Delete Reference
-    ${delete_icon}=    Set Variable  # path to Delete button
+Select All References
+    Select Checkbox    //table[1]//tr[1]//input[@type='checkbox']
+
+Delete References
+    ${delete_icon}=    Set Variable  xpath=//button[contains(@aria-label, 'Delete')]
     Wait Until Element Is Visible    ${delete_icon}
     Click Element    ${delete_icon}
 
 Select And Delete Reference
     [Arguments]  ${row_index}
-    Select Reference    ${row_index}
-    Delete Reference
+    Select One Reference    ${row_index}
+    Delete References
