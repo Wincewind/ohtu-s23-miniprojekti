@@ -26,13 +26,19 @@ User Cannot Input Reference With Missing Data
     Handle Alert
     Compare Row Count To Expected    0
 
-
 User Can See The Latest Reference First
     Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
     Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
     Compare Row Count To Expected    2
     Compare Row Values To Expected    ${EXPECTED VALUES 1}    2
     Compare Row Values To Expected    ${EXPECTED VALUES 2}    3
+
+User Can Delete One Reference
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
+    Select And Delete Reference  1
+    Compare Row Count To Expected    1
+    Compare Row Values To Expected    ${EXPECTED VALUES 1}    1
 
 *** Keywords ***
 Input Form Values
@@ -65,3 +71,18 @@ Compare Row Values To Expected
         ${index}=    Evaluate    ${index} + 2
         ${value}=    Get Table Cell    locator=//table[1]    row=${row_num}    column=${index}
     END
+
+Select Reference
+    [Arguments]  ${row_index}
+    ${checkbox}=    Set Variable    //table[1]//tr[${row_index}]//input[@type='checkbox']
+    Click Element    ${checkbox}
+
+Delete Reference
+    ${delete_icon}=    Set Variable  # path to Delete button
+    Wait Until Element Is Visible    ${delete_icon}
+    Click Element    ${delete_icon}
+
+Select And Delete Reference
+    [Arguments]  ${row_index}
+    Select Reference    ${row_index}
+    Delete Reference
