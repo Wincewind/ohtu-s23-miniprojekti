@@ -2,6 +2,7 @@
 Library           SeleniumLibrary
 Library           OperatingSystem
 Library           Collections
+Library           AppLibrary.py
 
 *** Variables ***
 ${SERVER}  localhost:5000
