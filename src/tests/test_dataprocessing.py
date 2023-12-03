@@ -77,3 +77,20 @@ class TestDataProcessing(unittest.TestCase):
             mock_execute.side_effect = Exception("Database error")
             self.assertFalse(dataprocessing.delete_books_by_id([1]))
             mock_execute.assert_called_once()
+
+    def test_get_book_by_title(self):
+        with app.app_context():
+            dataprocessing.add_book(
+                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+            self.assertEqual(True, dataprocessing.get_book_by_title("My Life"))
+    
+    def test_fail_to_get_book_by_title(self):
+        with app.app_context():
+            self.assertEqual(False, dataprocessing.get_book_by_title("Your Life"))
+    
+    @patch('dataprocessing.db.session.execute')
+    def test_fail_to_get_book_by_title_database_error(self, mock_execute):
+        with app.app_context():
+            mock_execute.side_effect = Exception("Database error")
+            result = dataprocessing.get_book_by_title("Your Life")
+            self.assertEqual(result, False)

@@ -14,10 +14,10 @@ class ReferenceServices:
 
             new_book = Book(authors, title, year, publisher, publisher_address)
 
-            # Search for a duplicate title in the database
-            # if self.get_book_by_title is not None:
-            #     print("Book already exists in the database")
-            #     raise Exception("Book already exists in the database) TODO
+            # Check if the book with the same title already exists
+            if self.get_book_by_title(new_book.title):
+                   print("Book already exists in the database")
+                   raise Exception("Book already exists in the database")
 
             self.dp.add_book(new_book.authors, new_book.title,
                              new_book.year, new_book.publisher, new_book.publisher_address)
@@ -26,9 +26,9 @@ class ReferenceServices:
             print("Error adding book to database", error)
             return False
 
-    # def get_book_by_title(self):
-    #     # Gets book by title from database
-    #     pass
+    def get_book_by_title(self, title):
+        '''Return True if book with title found and if not False'''
+        return self.dp.get_book_by_title(title)
 
     def get_all_references(self):
         """Gets all books from the Books table."""
