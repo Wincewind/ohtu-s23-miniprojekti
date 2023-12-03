@@ -16,8 +16,8 @@ class ReferenceServices:
 
             # Check if the book with the same title already exists
             if self.get_book_by_title(new_book.title):
-                   print("Book already exists in the database")
-                   raise Exception("Book already exists in the database")
+                print("Book already exists in the database")
+                raise ValueError("Book already exists in the database")
 
             self.dp.add_book(new_book.authors, new_book.title,
                              new_book.year, new_book.publisher, new_book.publisher_address)
