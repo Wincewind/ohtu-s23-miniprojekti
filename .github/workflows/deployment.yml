@@ -1,7 +1,8 @@
 name: Fly Deploy
 on:
   release:
-    types: [created]
+    types: 
+      - created
     branches: [flyio-deployment]
 jobs:
   deploy:
