@@ -59,3 +59,43 @@ The values in example.env should work if it's just renamed to ".env", but genera
 ```bash
 invoke start
 ```
+
+### Scripts
+
+**Note: Run these scripts inside the Poetry shell. Enter `poetry shell` to activate the shell.**
+
+Install frontend dependencies and build:
+
+```bash
+invoke build-frontend
+```
+
+Install backend dependencies:
+
+```bash
+invoke build-backend
+```
+
+Run Flask app:
+
+```bash
+invoke start
+```
+
+Initialize database:
+
+```bash
+invoke init-db
+```
+
+Run `build-frontend` & `build-backend`:
+
+```bash
+invoke build-full
+```
+
+Run `build-frontend`, `build-backend` & `init-db`:
+
+```bash
+invoke build-full-init-db
+```

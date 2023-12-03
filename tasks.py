@@ -7,26 +7,24 @@ from invoke import task
 @task
 def build_frontend(ctx):
     os.chdir('frontend')
-    ctx.run('npm ci', pty=True)
-    ctx.run('npm run build', pty=True)
+    ctx.run('npm ci')
+    ctx.run('npm run build')
     os.chdir('..')
 
 
 @task
 def build_backend(ctx):
-    ctx.run("poetry install && \
-            poetry shell",
-            pty=True)
+    ctx.run("poetry install")
 
 
 @task
 def start(ctx):
-    ctx.run("flask --app src/app.py run", pty=True)
+    ctx.run("flask --app src/app.py run")
 
 
 @task
 def init_db(ctx):
-    ctx.run("psql < schema.sql", pty=True)
+    ctx.run("psql < schema.sql")
 
 
 @task(build_frontend, build_backend)

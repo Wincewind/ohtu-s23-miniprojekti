@@ -18,6 +18,4 @@ You may also see any lint errors in the console.
 
 ### `npm run build`
 
-Builds frontend and copies needed files to backend `src/build/` directory. Atm not compatible with Windows!
-
-Windows workaround: `npm run react-scripts build`. When the build is ready, copy contents of `frontend/build/` directory to `src/build/`.
+Builds frontend and copies needed files to backend `src/build/` directory.
