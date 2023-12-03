@@ -6,3 +6,9 @@ htmlcov
 .env
 src/build/
 .vscode
+
+# local robot test reports
+selenium-screenshot-*.png
+log.html
+output.xml
+report.html
