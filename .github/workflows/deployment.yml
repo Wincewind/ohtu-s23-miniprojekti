@@ -1,7 +1,7 @@
 name: Fly Deploy
+
 on:
-  release:
-    types: [created]
+  push:
     branches: [flyio-deployment]
 jobs:
   deploy:
@@ -31,7 +31,7 @@ jobs:
         run: poetry run invoke build-frontend
 
       - name: Flyctl deploy
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+        uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
