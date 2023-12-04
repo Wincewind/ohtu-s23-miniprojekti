@@ -49,17 +49,9 @@ class TestReferenceService(unittest.TestCase):
                                                2008, 'Prentice Hall', 'Bakerstreet 123'))
 
     def test_delete_all_books(self):
-        self.ref_ser.add_book('Garwin, Robert',
-                              'Clean Code: A Handbook of Agile Software Craftsmanship',
-                              2008, 'Prentice Hall', 'Bakerstreet 123')
-        self.ref_ser.add_book('Hawking, Stephen',
-                              'Brief Answers to the Big Questions',
-                              2018, 'John Murray', '50 Albemarle Street')
-        self.assertTrue([], self.ref_ser.delete_all_books())
+        self.ref_ser.delete_all_books()
+        self.mock_dataprocessing.delete_all_books.assert_called()
 
     def test_delete_books_by_id(self):
-        # Returns books from database (listed dictionary)
-        result = self.ref_ser.get_all_references()
-        # Get the ids of the books as a list
-        ids = [id['book_id'] for id in result]
-        self.assertTrue(self.ref_ser.delete_books_by_id(ids))
+        self.ref_ser.delete_books_by_id([1, 2, 3])
+        self.mock_dataprocessing.delete_books_by_id.assert_called()
