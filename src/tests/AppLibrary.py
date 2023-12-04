@@ -10,4 +10,4 @@ class AppLibrary:
         os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -f')} schema.sql")
 
     def load_test_data(self):
-        os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -f')} tests/test-schema.sql")
+        os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -f')} src/tests/test-schema.sql")
