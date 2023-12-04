@@ -41,9 +41,25 @@ class TestReferenceService(unittest.TestCase):
         self.assertTrue(self.ref_ser.add_book('Garwin, Robert',
                                               'Clean Code: A Handbook of Agile Software Craftsmanship',
                                               2008, 'Prentice Hall', 'Bakerstreet 123'))
-        
+
         '''setting return value to True indicating that a book with the same title do exist after added title'''
         self.mock_dataprocessing.get_book_by_title.return_value = True
         self.assertFalse(self.ref_ser.add_book('Garwin, Robert',
                                                'Clean Code: A Handbook of Agile Software Craftsmanship',
                                                2008, 'Prentice Hall', 'Bakerstreet 123'))
+
+    def test_delete_all_books(self):
+        self.ref_ser.add_book('Garwin, Robert',
+                              'Clean Code: A Handbook of Agile Software Craftsmanship',
+                              2008, 'Prentice Hall', 'Bakerstreet 123')
+        self.ref_ser.add_book('Hawking, Stephen',
+                              'Brief Answers to the Big Questions',
+                              2018, 'John Murray', '50 Albemarle Street')
+        self.assertTrue([], self.ref_ser.delete_all_books())
+
+    def test_delete_books_by_id(self):
+        # Returns books from database (listed dictionary)
+        result = self.ref_ser.get_all_references()
+        # Get the ids of the books as a list
+        ids = [id['book_id'] for id in result]
+        self.assertTrue(self.ref_ser.delete_books_by_id(ids))
