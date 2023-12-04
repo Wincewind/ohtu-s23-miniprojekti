@@ -1,8 +1,9 @@
-name: Fly Deploy
+name: CD
 
 on:
-  push:
+  release:
     branches: [flyio-deployment]
+    types: [published]
 jobs:
   deploy:
     name: Deploy app
@@ -14,12 +15,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
-      - name: Create .env file
-        run: |
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
-          echo "DATABASE_URL=${{ vars.DATABASE_URL }}" >> .env
-          echo "PSQL_SCHEMA_COMMAND=${{ vars.PSQL_SCHEMA_COMMAND }}" >> .env
         
       - name: Install Poetry
         run: pip install poetry
