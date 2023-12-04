@@ -2,7 +2,7 @@ name: CD
 
 on:
   release:
-    branches: [flyio-deployment]
+    branches: [main]
     types: [published]
 jobs:
   deploy:
