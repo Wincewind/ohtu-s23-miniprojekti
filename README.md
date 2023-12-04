@@ -14,13 +14,9 @@
 - Code is tested.
 
 ### Acceptance criteria
+<!--#L13-#L41-->
+https://github.com/Wincewind/ohtu-s23-miniprojekti/blob/ef49e95d32cf2bb5df595fea84a3c29ad0772f4b/src/tests/test_reference.robot#L13-L48
 
-As a User, I want to be able to list my references in human-readable form
-
-- The user can see all the added references in the UI.
-- The frontend fetches the references from backend.
-- Backend gets the data from the database.
-- Newly added references can be seen without the need to update the page.
 
 ## How to setup and run locally (tested in Uni Linux environment, some steps/commands might be different on Windows or Mac):
 
