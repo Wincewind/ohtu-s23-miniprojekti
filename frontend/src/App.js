@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import AppTitle from './components/AppTitle'
-import AddReferenceForm from './components/AddReferenceForm'
+import DoiForm from './components/DoiForm'
+import ReferenceForm from './components/ReferenceForm'
 import ReferenceTable from './components/ReferenceTable/ReferenceTable'
 import { getAllReferences } from './api/referenceService'
+import { parseDoiMetaData } from './util/DoiUtil'
 
 const App = () => {
     const [rows, setRows] = useState([])
+    const [referenceFormData, setFormData] = useState({})
 
     const fetchData = async () => {
         try {
@@ -20,11 +23,24 @@ const App = () => {
         fetchData()
     }, [])
 
+    const handleDoiFetched = async (metadata) => {
+        setFormData(parseDoiMetaData(metadata))
+    }
+
+    const handleReferenceFormInputChange = (name, value) => {
+        setFormData({ ...referenceFormData, [name]: value })
+    }
+
     return (
         <div>
             <AppTitle titleText="latex citation tool" />
             <br />
-            <AddReferenceForm onReferenceAdded={fetchData} />
+            <DoiForm onDoiFetched={handleDoiFetched} />
+            <ReferenceForm
+                onReferenceAdded={fetchData}
+                formData={referenceFormData}
+                onInputChange={handleReferenceFormInputChange}
+            />
             <br />
             <br />
             <ReferenceTable rows={rows} onDelete={fetchData} />
