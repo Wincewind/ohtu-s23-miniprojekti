@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Typography from '@mui/material/Typography'
+import AppTitle from './components/AppTitle'
 import AddReferenceForm from './components/AddReferenceForm'
 import ReferenceTable from './components/ReferenceTable/ReferenceTable'
 import { getAllReferences } from './api/referenceService'
@@ -22,14 +22,7 @@ const App = () => {
 
     return (
         <div>
-            <Typography
-                sx={{ flex: '1 1 100%' }}
-                variant="h4"
-                id="appTitle"
-                component="div"
-            >
-                latex citation tool
-            </Typography>
+            <AppTitle titleText="latex citation tool" />
             <br />
             <AddReferenceForm onReferenceAdded={fetchData} />
             <br />
