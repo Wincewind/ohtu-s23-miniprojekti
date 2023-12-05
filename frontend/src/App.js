@@ -3,32 +3,38 @@ import AppTitle from './components/AppTitle'
 import DoiForm from './components/DoiForm'
 import ReferenceForm from './components/ReferenceForm'
 import ReferenceTable from './components/ReferenceTable/ReferenceTable'
-import { getAllReferences } from './api/referenceService'
+import { fetchAllReferences } from './util/fetchUtil'
 import { parseDoiMetaData } from './util/DoiUtil'
 
 const App = () => {
     const [rows, setRows] = useState([])
-    const [referenceFormData, setFormData] = useState({})
-
-    const fetchData = async () => {
-        try {
-            const data = await getAllReferences()
-            setRows(data)
-        } catch (error) {
-            console.error('Error fetching data: ', error)
-        }
-    }
+    const [referenceFormData, setReferenceFormData] = useState({})
 
     useEffect(() => {
-        fetchData()
+        const fetchReferences = async () => {
+            const references = await fetchAllReferences()
+            references && setRows(references)
+        }
+        fetchReferences()
     }, [])
 
     const handleDoiFetched = async (metadata) => {
-        setFormData(parseDoiMetaData(metadata))
+        setReferenceFormData(parseDoiMetaData(metadata))
     }
 
     const handleReferenceFormInputChange = (name, value) => {
-        setFormData({ ...referenceFormData, [name]: value })
+        setReferenceFormData({ ...referenceFormData, [name]: value })
+    }
+
+    const handleReferenceAdded = async () => {
+        const references = await fetchAllReferences()
+        references && setRows(references)
+        setReferenceFormData({})
+    }
+
+    const handleDelete = async () => {
+        const references = await fetchAllReferences()
+        references && setRows(references)
     }
 
     return (
@@ -37,13 +43,13 @@ const App = () => {
             <br />
             <DoiForm onDoiFetched={handleDoiFetched} />
             <ReferenceForm
-                onReferenceAdded={fetchData}
+                onReferenceAdded={handleReferenceAdded}
                 formData={referenceFormData}
                 onInputChange={handleReferenceFormInputChange}
             />
             <br />
             <br />
-            <ReferenceTable rows={rows} onDelete={fetchData} />
+            <ReferenceTable rows={rows} onDelete={handleDelete} />
         </div>
     )
 }

@@ -6,10 +6,10 @@ const ReferenceForm = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        const form = new FormData(event.target)
 
         try {
-            await addReference(formData)
-            event.target.reset()
+            await addReference(form)
             onReferenceAdded()
             alert('Reference added!')
         } catch (error) {

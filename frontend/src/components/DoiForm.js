@@ -5,6 +5,7 @@ const DoiForm = (props) => {
         event.preventDefault()
         const doi = new FormData(event.target).get('DOI')
         const url = `https://api.crossref.org/works/${doi}`
+        event.target.reset()
 
         try {
             const response = await fetch(url)
