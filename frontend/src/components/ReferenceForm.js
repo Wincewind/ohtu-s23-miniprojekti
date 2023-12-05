@@ -77,7 +77,9 @@ const ReferenceForm = (props) => {
             </label>
             <br />
             <br />
-            <button type="submit">Submit</button>
+            <button id="referenceFormSubmitButton" type="submit">
+                Submit
+            </button>
         </form>
     )
 }
