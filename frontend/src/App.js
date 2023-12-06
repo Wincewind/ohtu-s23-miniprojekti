@@ -1,40 +1,55 @@
 import React, { useState, useEffect } from 'react'
-import Typography from '@mui/material/Typography'
-import AddReferenceForm from './components/AddReferenceForm'
+import AppTitle from './components/AppTitle'
+import DoiForm from './components/DoiForm'
+import ReferenceForm from './components/ReferenceForm'
 import ReferenceTable from './components/ReferenceTable/ReferenceTable'
-import { getAllReferences } from './api/referenceService'
+import { fetchAllReferences } from './util/fetchUtil'
+import { parseDoiMetaData } from './util/DoiUtil'
 
 const App = () => {
     const [rows, setRows] = useState([])
-
-    const fetchData = async () => {
-        try {
-            const data = await getAllReferences()
-            setRows(data)
-        } catch (error) {
-            console.error('Error fetching data: ', error)
-        }
-    }
+    const [referenceFormData, setReferenceFormData] = useState({})
 
     useEffect(() => {
-        fetchData()
+        const fetchReferences = async () => {
+            const references = await fetchAllReferences()
+            references && setRows(references)
+        }
+        fetchReferences()
     }, [])
+
+    const handleDoiFetched = async (metadata) => {
+        setReferenceFormData(parseDoiMetaData(metadata))
+    }
+
+    const handleReferenceFormInputChange = (name, value) => {
+        setReferenceFormData({ ...referenceFormData, [name]: value })
+    }
+
+    const handleReferenceAdded = async () => {
+        const references = await fetchAllReferences()
+        references && setRows(references)
+        setReferenceFormData({})
+    }
+
+    const handleDelete = async () => {
+        const references = await fetchAllReferences()
+        references && setRows(references)
+    }
 
     return (
         <div>
-            <Typography
-                sx={{ flex: '1 1 100%' }}
-                variant="h4"
-                id="appTitle"
-                component="div"
-            >
-                latex citation tool
-            </Typography>
+            <AppTitle titleText="latex citation tool" />
             <br />
-            <AddReferenceForm onReferenceAdded={fetchData} />
+            <DoiForm onDoiFetched={handleDoiFetched} />
+            <ReferenceForm
+                onReferenceAdded={handleReferenceAdded}
+                formData={referenceFormData}
+                onInputChange={handleReferenceFormInputChange}
+            />
             <br />
             <br />
-            <ReferenceTable rows={rows} onDelete={fetchData} />
+            <ReferenceTable rows={rows} onDelete={handleDelete} />
         </div>
     )
 }

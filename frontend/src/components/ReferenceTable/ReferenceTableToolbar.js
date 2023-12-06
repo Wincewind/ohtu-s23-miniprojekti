@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DownloadIcon from '@mui/icons-material/Download'
-import FilterListIcon from '@mui/icons-material/FilterList'
 import { deleteReferencesInArray } from '../../api/referenceService'
 import { convertToBibTex } from '../../util/bibTexUtil'
 
@@ -74,7 +73,7 @@ const ReferenceTableToolbar = (props) => {
                 </Typography>
             )}
 
-            {numSelected > 0 ? (
+            {numSelected > 0 && (
                 <>
                     <Tooltip title="Download">
                         <IconButton onClick={handleDownload}>
@@ -87,12 +86,6 @@ const ReferenceTableToolbar = (props) => {
                         </IconButton>
                     </Tooltip>
                 </>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon />
-                    </IconButton>
-                </Tooltip>
             )}
         </Toolbar>
     )

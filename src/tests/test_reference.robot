@@ -55,7 +55,7 @@ Input Form Values
     END
 
 Submit Form
-    Click Button  //button[@type='submit']
+    Click Button  id:referenceFormSubmitButton
 
 Submit Form And Handle Alert
     [Arguments]  ${form_elements}  ${values}
