@@ -40,6 +40,6 @@ CREATE TABLE UserBooks (
 CREATE TABLE UserArticles (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES Users(id) ON DELETE CASCADE,
-    book_id INT NOT NULL REFERENCE Articles(id) ON DELETE CASCADE,
+    book_id INT NOT NULL REFERENCES Articles(id) ON DELETE CASCADE,
     UNIQUE(user_id, book_id)
 );
