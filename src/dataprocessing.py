@@ -83,7 +83,7 @@ def delete_books_by_id(book_id: list[int]):
             db.session.execute(text(sql_query), id_string_parameters)
             db.session.commit()
         
-		return True
+        return True
     except Exception as error:
         print("Exception occurred: ", error)
         db.session.rollback()
