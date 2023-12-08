@@ -12,7 +12,8 @@ def index():
 def add_reference():
 
     if request.method == "POST":
-        #Martin: addition attempt to handle additional article inputs starts
+        #Martin: addition attempt to handle additional article inputs starts. 
+        #Feels sketchy -> Jouni to have a second look.
         try:
             authors = request.form["authors"]
             title = request.form["title"]
@@ -34,8 +35,9 @@ def add_reference():
             number = ""
             pages = ""
 
-        #Martin: addition attempt to handle additional article inputs ends
-
+        #Martin: addition attempt to handle additional article inputs ends. 
+        #Feels sketchy -> Jouni to have a second look.
+        
         print(authors, title, year, publisher, publisher_address)
 
         #Martin: addition attempt to handle insert article to Article table and book into Book table starts
@@ -60,14 +62,13 @@ def get_all_references():
 def delete_references():
     if request.method == "POST":
         refs_to_remove = request.get_json()
-        if reference_service.delete_books_by_id(refs_to_remove):
-            return jsonify({"message": "Deletion succesful"}), 201
-        
-        #Martin: addition attempt to delete article starts
-        elif reference_service.delete_article_by_id(refs_to_remove):
+
+        # Martin: addition attempt to delete article starts
+        # Will it work to remove right book or article by approach below? If not, how to fix it e.g. check if journal in json or not? 
+        # -> Jouni to have a second look.
+        if reference_service.delete_books_by_id(refs_to_remove) or reference_service.delete_article_by_id(refs_to_remove):
             return jsonify({"message": "Deletion succesful"}), 201
         #Martin: addition attempt to delete article ends
-        
         else:
             return jsonify({"message": "Error occurred when deleting reference(s)"}), 501
 
