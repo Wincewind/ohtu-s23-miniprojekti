@@ -25,13 +25,13 @@ class TestDataProcessing(unittest.TestCase):
 
     def test_get_all_books(self):
         with app.app_context():
-            self.assertEqual(len(dataprocessing.get_all_books()), 2)
+            self.assertEqual(len(dataprocessing.get_all_references()), 2)
 
     @patch('dataprocessing.db.session.execute')
     def test_fail_to_get_all_books(self, mock_execute):
         with app.app_context():
             mock_execute.side_effect = Exception("Database error")
-            result = dataprocessing.get_all_books()
+            result = dataprocessing.get_all_references()
             self.assertEqual(result, [])
             mock_execute.assert_called_once()
 
@@ -53,10 +53,10 @@ class TestDataProcessing(unittest.TestCase):
         with app.app_context():
             dataprocessing.add_book(
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
-            result = dataprocessing.get_all_books() # Get book from database (listed dictionary)
+            result = dataprocessing.get_all_references() # Get book from database (listed dictionary)
             # Return the id of the book as a list
             self.assertEqual(True, dataprocessing.delete_books_by_id([result[0]['book_id']]))
-            self.assertEqual(2, len(dataprocessing.get_all_books()))
+            self.assertEqual(2, len(dataprocessing.get_all_references()))
 
     def test_delete_multiple_books(self):
         with app.app_context():
@@ -65,11 +65,11 @@ class TestDataProcessing(unittest.TestCase):
                 "Murray, John", "338 Euston Road London")
             dataprocessing.add_book(
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
-            result = dataprocessing.get_all_books() # Returns both books from database (listed dictionary)
+            result = dataprocessing.get_all_references() # Returns both books from database (listed dictionary)
             # Get the ids of the books as a list
             ids = [id['book_id'] for id in result]
             self.assertEqual(True, dataprocessing.delete_books_by_id(ids))
-            self.assertEqual(0, len(dataprocessing.get_all_books()))
+            self.assertEqual(0, len(dataprocessing.get_all_references()))
 
     @patch('dataprocessing.db.session.execute')
     def test_fail_to_delete_books_by_id(self, mock_execute):

@@ -32,7 +32,7 @@ class ReferenceServices:
 
     def get_all_references(self):
         """Gets all books from the Books table."""
-        return self.dp.get_all_books()
+        return self.dp.get_all_references()
 
     def delete_all_books(self):
         """Removes all books from the Books table."""

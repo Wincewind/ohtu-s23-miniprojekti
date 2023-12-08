@@ -1,6 +1,6 @@
 from sqlalchemy.sql import text
 from db import db
-from entities.reference import Book
+from entities.reference import Book, Article
 
 
 def add_book(authors, title, year, publisher, publisher_address):
@@ -21,27 +21,72 @@ def add_book(authors, title, year, publisher, publisher_address):
         print('Error occurred: ', error)
         db.session.rollback()
         return False
-
-
-def get_all_books():
-    """Fetch data from database and return a list of dictionaries."""
+    
+def add_article(authors, title, journal, publication_year, volume, number, pages):
+    """Insert a new article into the Articles table."""
     try:
-        rows = db.session.execute(
+        db.session.execute(
+            text("""INSERT
+            INTO Articles 
+            (author, title, journal, publication_year, volume, number, pages)
+            VALUES
+            (:author, :title, :journal, :publication_year, :volume, :number, :pages)"""),
+            {"author": authors, "title": title, "journal": journal,
+             "publication_year": publication_year, "volume": volume,
+             "number": number, "pages": pages}
+        )
+        db.session.commit()
+        return True
+    except Exception as error:
+        print('Error occurred: ', error)
+        db.session.rollback()
+        return False
+
+
+def get_all_references():
+    """Fetch books and articles from database and return a list of dictionaries."""
+    try:
+        #Original inclusion of all books 
+        book_rows = db.session.execute(
             text("""SELECT
                  id, author, title, publication_year, publisher, publisher_address
                  FROM Books"""),).mappings().all()
 
-        result_dicts = [
+        book_dicts = [
             {
-                'book_id': row.id,
-                'authors': row.author,
-                'title': row.title,
-                'year': row.publication_year,
-                'publisher': row.publisher,
-                'publisher_address': row.publisher_address
+                'book_id': book_row.id,
+                'authors': book_row.author,
+                'title': book_row.title,
+                'year': book_row.publication_year,
+                'publisher': book_row.publisher,
+                'publisher_address': book_row.publisher_address
             }
-            for row in rows
+            for book_row in book_rows
         ]
+
+        #Addition attempt to include all articles as well starts
+        article_rows = db.session.execute(
+            text("""SELECT
+                 id, author, title, journal, publication_year, volume, number, pages
+                 FROM Articles"""),).mappings().all()
+
+        article_dicts = [
+            {
+                'article_id': article_row.id,
+                'authors': article_row.author,
+                'title': article_row.title,
+                'journal': article_row.journal,
+                'publication_year': article_row.publication_year,
+                'volume': article_row.volume,
+                'number': article_row.number,
+                'pages': article_row.pages
+            }
+            for article_row in article_rows
+        ]
+
+        result_dicts = book_dicts + article_dicts
+
+        ### Addition attempt to include all articles as well ends###
 
         db.session.commit()
 
@@ -62,7 +107,7 @@ def delete_all_books():
     except Exception as error:
         print("Error occurred: ", error)
         db.session.rollback()
-        return get_all_books()
+        return get_all_references()
 
 
 def delete_books_by_id(book_id: list[int]):
