@@ -43,7 +43,7 @@ def add_article(authors, title, journal, publication_year, volume, number, pages
         db.session.rollback()
         return False
 
-#Martin: changed get_all_books -> get_all_references. Affected rerence_services.py and test_dataprocessing.py, but should be OK
+#Martin: changed get_all_books -> get_all_references
 def get_all_references():
     """Fetch books and articles from database and return a list of dictionaries."""
     try:

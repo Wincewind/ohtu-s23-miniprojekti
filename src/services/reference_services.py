@@ -1,4 +1,4 @@
-from entities.reference import Book
+from entities.reference import Book, Article
 import dataprocessing
 
 
@@ -28,7 +28,22 @@ class ReferenceServices:
     
     #Martin: placeholder for add_article
     def add_article(self, authors: str, title: str, journal: str, publication_year: int, volume: int, number: int, pages: int) -> bool:
-        pass
+        """Adds a new article to the Articles table."""
+        try:
+
+            new_article = Article(authors, title, journal, publication_year, volume, number, pages)
+
+            # Check if the article with the same title already exists
+            if self.get_article_by_title(new_article.title):
+                print("Article already exists in the database")
+                raise ValueError("Article already exists in the database")
+
+            self.dp.add_article(new_article.authors, new_article.title,
+                             new_article.journal, new_article.publication_year, new_article.volume, new_article.number, new_article.pages)
+            return True
+        except Exception as error:
+            print("Error adding article to database", error)
+            return False
 
     def get_book_by_title(self, title):
         '''Return True if book with title found and if not False'''

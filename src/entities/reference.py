@@ -43,7 +43,7 @@ class Article:
         self.title = title
         self.journal = journal
         self.publication_year = publication_year
-        self.publisher_volume = volume
-        self.publisher_number = number
-        self.publisher_pages = pages
+        self.volume = volume
+        self.number = number
+        self.pages = pages
         self.article_id = article_id
