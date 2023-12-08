@@ -175,3 +175,22 @@ def get_book_by_title(title):
     except Exception as error:
         print(f"Error occured: {error}")
         return False
+
+#Martin: get_article_by title added
+def get_article_by_title(title):
+    """Return True if title found and False if not"""
+    try:
+        query = text("""SELECT
+                     id, author, title, journal, publication_year, volume, number, pages
+                     FROM Articles WHERE title = :title"""
+                     )
+
+        result = db.session.execute(query, {'title': title})
+        article = result.fetchone()
+        result.close()
+
+        return bool(article)
+
+    except Exception as error:
+        print(f"Error occured: {error}")
+        return False

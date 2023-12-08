@@ -26,13 +26,18 @@ class ReferenceServices:
             print("Error adding book to database", error)
             return False
     
-    ##Martin: placeholder for add_article
+    #Martin: placeholder for add_article
     def add_article(self, authors: str, title: str, journal: str, publication_year: int, volume: int, number: int, pages: int) -> bool:
         pass
 
     def get_book_by_title(self, title):
         '''Return True if book with title found and if not False'''
         return self.dp.get_book_by_title(title)
+    
+    #Martin: get_article_by_title added
+    def get_article_by_title(self, title):
+        '''Return True if article with title found and if not False'''
+        return self.dp.get_article_by_title(title)
     
     #Martin: get_all_books -> get_all_reference
     def get_all_references(self):
