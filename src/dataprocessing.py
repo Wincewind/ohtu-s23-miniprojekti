@@ -21,7 +21,8 @@ def add_book(authors, title, year, publisher, publisher_address):
         print('Error occurred: ', error)
         db.session.rollback()
         return False
-    
+
+#Martin: add_article added
 def add_article(authors, title, journal, publication_year, volume, number, pages):
     """Insert a new article into the Articles table."""
     try:
@@ -42,7 +43,7 @@ def add_article(authors, title, journal, publication_year, volume, number, pages
         db.session.rollback()
         return False
 
-#Martin changed get_all_books -> get_all_references. Affected rerence_services.py and test_dataprocessing.py, but should be OK
+#Martin: changed get_all_books -> get_all_references. Affected rerence_services.py and test_dataprocessing.py, but should be OK
 def get_all_references():
     """Fetch books and articles from database and return a list of dictionaries."""
     try:
@@ -63,7 +64,7 @@ def get_all_references():
             for book_row in book_rows
         ]
 
-        #Martin addition attempt to include all articles as well starts
+        #Martin: addition attempt to include all articles as well starts
         article_rows = db.session.execute(
             text("""SELECT
                  id, author, title, journal, publication_year, volume, number, pages
@@ -85,7 +86,7 @@ def get_all_references():
 
         result_dicts = book_dicts + article_dicts
 
-        #Martin addition attempt to include all articles as well ends
+        #Martin: addition attempt to include all articles as well ends
 
         db.session.commit()
 
@@ -95,11 +96,12 @@ def get_all_references():
         db.session.rollback()
         return []
 
-#Martin changed delete_all_books -> delete_all_references. Affected rerence_services.py and test_dataprocessing.py, but should be OK
+#Martin: delete_all_books -> delete_all_references
 def delete_all_references():
-    """Delete all books from Books-table and return an empty list."""
+    """Delete all books and articles from Books and Articles tables and return an empty list."""
     try:
         db.session.execute(text("""DELETE FROM Books"""))
+        db.session.execute(text("""DELETE FROM Articles"""))
         db.session.commit()
         return []
 
@@ -124,6 +126,30 @@ def delete_books_by_id(book_id: list[int]):
             sql_query = f"DELETE FROM Books WHERE id IN ({book_id_strings})"
             id_string_parameters = {f"book_id_{i}": id
                                     for i, id in enumerate(book_id)}
+            db.session.execute(text(sql_query), id_string_parameters)
+            db.session.commit()
+            return True
+    except Exception as error:
+        print("Exception occurred: ", error)
+        db.session.rollback()
+        return False
+
+#Martin: delete_article_by_id added
+def delete_article_by_id(article_id: list[int]):
+    """Delete articles from Article-table based on article ids on a list."""
+    try:
+
+        if len(article_id) == 1:
+            db.session.execute(text("DELETE FROM Article WHERE id = :article_id"), {
+                               "article_id": article_id[0]})
+            db.session.commit()
+            return True
+        else:
+            article_id_strings = ", ".join(
+                [f":article_id_{i}" for i in range(len(article_id))])
+            sql_query = f"DELETE FROM Articles WHERE id IN ({article_id_strings})"
+            id_string_parameters = {f"article_id_{i}": id
+                                    for i, id in enumerate(article_id)}
             db.session.execute(text(sql_query), id_string_parameters)
             db.session.commit()
             return True

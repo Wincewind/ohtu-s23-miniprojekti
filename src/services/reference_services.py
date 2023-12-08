@@ -25,6 +25,10 @@ class ReferenceServices:
         except Exception as error:
             print("Error adding book to database", error)
             return False
+    
+    ##Martin: placeholder for add_article
+    def add_article(self, authors: str, title: str, journal: str, publication_year: int, volume: int, number: int, pages: int) -> bool:
+        pass
 
     def get_book_by_title(self, title):
         '''Return True if book with title found and if not False'''
@@ -43,6 +47,10 @@ class ReferenceServices:
     def delete_books_by_id(self, book_ids: list[int]) -> bool:
         """Deletes books from the Books table based on book ids on a list."""
         return self.dp.delete_books_by_id(book_ids)
+    
+    #Martin: placeholder for delete_article_by_id
+    def delete_books_by_id(self, article_ids: list[int]) -> bool:
+        pass
 
 
 reference_service = ReferenceServices()
