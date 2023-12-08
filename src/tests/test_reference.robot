@@ -48,8 +48,6 @@ User Can Delete All References
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    0
 
 User Can Generate A BibTex File From A Reference In Correct Format
-    Close Browser
-    Open And Configure Normal Browser    #Because of a Chrome 'Security Feature', downloading files doens't work in headless mode.
     Remove File    ${PATH TO GENERATED BIBTEX}
     Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
@@ -57,8 +55,6 @@ User Can Generate A BibTex File From A Reference In Correct Format
     Wait Until Keyword Succeeds    3    1    Check For File Existance    ${PATH TO GENERATED BIBTEX}
     Validate Generated Bibtex File
     Remove File    ${PATH TO GENERATED BIBTEX}
-    
-
 
 *** Keywords ***
 Input Form Values
