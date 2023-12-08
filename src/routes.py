@@ -12,25 +12,35 @@ def index():
 def add_reference():
 
     if request.method == "POST":
-        authors = request.form["authors"]
-        title = request.form["title"]
-        year = request.form["year"]
-        publisher = request.form["publisher"]
-        publisher_address = request.form["publisher_address"]
-
         #Martin: addition attempt to handle additional article inputs starts
-        journal = request.form["journal"]
-        volume = request.form["volume"]
-        number = request.form["number"]
-        pages = request.form["pages"]
+        try:
+            authors = request.form["authors"]
+            title = request.form["title"]
+            year = request.form["year"]
+            publisher = request.form["publisher"]
+            publisher_address = request.form["publisher_address"]
+        except:
+            publisher = ""
+            publisher_address = ""
+            
+        try:
+            journal = request.form["journal"]
+            volume = request.form["volume"]
+            number = request.form["number"]
+            pages = request.form["pages"]
+        except:
+            journal = ""
+            volume = ""
+            number = ""
+            pages = ""
+
         #Martin: addition attempt to handle additional article inputs ends
 
         print(authors, title, year, publisher, publisher_address)
 
         #Martin: addition attempt to handle insert article to Article table and book into Book table starts
         if journal == volume == number == pages == "":
-            if reference_service.add_book(authors, title, year,
-                                      publisher, publisher_address):
+            if reference_service.add_book(authors, title, year,publisher, publisher_address):
                 return jsonify({"message": "Reference added"}), 201
         elif publisher == publisher_address == "":
             if reference_service.add_article(authors, title, journal, 
