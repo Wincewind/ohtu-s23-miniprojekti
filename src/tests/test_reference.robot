@@ -1,23 +1,21 @@
 *** Settings ***
 Resource  resource.robot
-Suite Setup  Open And Configure Browser
+Variables  AppLibrary.py
+Suite Setup  Open And Configure Headless Browser
 Test Setup    Reset Application And Reload Page
 Suite Teardown  Close Browser
 
 *** Variables ***
-@{FORM ELEMENTS}  authors  title  year  publisher  publisher_address
-@{EXPECTED VALUES 1}  Mariot Tsitoara  Beginning Git and GitHub  2019  APress  One New York Plaza, Suite 4600 New York, NY
-@{EXPECTED VALUES 2}  Hawking, Stephen  A Brief History of Time: From the Big Bang to Black Holes  1988  Bantam  Random House Academic Marketing, 1745 Broadway, 20th Floor, New York
 ${DELAY}  0.005 seconds  # set this to 0.3-0.5 if you disabled --headless in resource.robot
 
 *** Test Cases ***
 User Can Add Reference To The App
     Compare Row Count To Expected    0
-    Input Form Values  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
+    Input Form Values  ${FORM ELEMENTS}  ${TEST INPUT 1}
     Submit Form
     Handle Alert
-    Compare Row Count To Expected    1
-    Compare Row Values To Expected    ${EXPECTED VALUES 1}    2
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
+    Compare Row Values To Expected    ${TEST INPUT 1}    2
 
 User Cannot Input Reference With Missing Data
     Submit Form
@@ -27,25 +25,36 @@ User Cannot Input Reference With Missing Data
     Compare Row Count To Expected    0
 
 User Can See The Latest Reference First
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
-    Compare Row Count To Expected    2
-    Compare Row Values To Expected    ${EXPECTED VALUES 1}    2
-    Compare Row Values To Expected    ${EXPECTED VALUES 2}    3
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 2}
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
+    Compare Row Values To Expected    ${TEST INPUT 1}    2
+    Compare Row Values To Expected    ${TEST INPUT 2}    3
 
 User Can Delete One Reference
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 2}
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
     Select And Delete Reference  2  # delete second reference
-    Compare Row Count To Expected    1
-    Compare Row Values To Expected    ${EXPECTED VALUES 1}    1
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
+    Compare Row Values To Expected    ${TEST INPUT 1}    1
 
 User Can Delete All References
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 1}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${EXPECTED VALUES 2}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 2}
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
     Select All References
     Delete References
-    Compare Row Count To Expected    0
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    0
+
+User Can Generate A BibTex File From A Reference In Correct Format
+    Remove File    ${PATH TO GENERATED BIBTEX}
+    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
+    Select And Generate BibTex File From Reference    1
+    Wait Until Keyword Succeeds    3    1    Check For File Existance    ${PATH TO GENERATED BIBTEX}
+    Validate Generated Bibtex File
+    Remove File    ${PATH TO GENERATED BIBTEX}
 
 *** Keywords ***
 Input Form Values
@@ -97,3 +106,18 @@ Select And Delete Reference
     [Arguments]  ${row_index}
     Select One Reference    ${row_index}
     Delete References
+
+Generate BibTex File
+    ${download_icon}=    Set Variable  xpath=//button[contains(@aria-label, 'Download')]
+    Wait Until Element Is Visible    ${download_icon}
+    Click Element    ${download_icon}
+
+Select And Generate BibTex File From Reference
+    [Arguments]  ${row_index}
+    Select One Reference    ${row_index}
+    Generate BibTex File
+    
+
+Check For File Existance
+    [Arguments]  ${file_path}
+    File Should Exist    ${file_path}

@@ -10,9 +10,8 @@ ${DELAY}  0 seconds
 ${BASE URL}  http://${SERVER}
 
 *** Keywords ***
-Open And Configure Browser
-    ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
-    Call Method    ${options}    add_argument    --no-sandbox
-    Call Method  ${options}  add_argument  --headless
-    Open Browser  ${BASE URL}  Chrome  options=${options}
+Open And Configure Headless Browser
+    ${OPTIONS}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
+    Call Method    ${OPTIONS}    add_argument    --no-sandbox
+    Open Browser  ${BASE URL}  HeadlessChrome  options=${OPTIONS}
     Set Selenium Speed  ${DELAY}
