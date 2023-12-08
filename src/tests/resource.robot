@@ -15,9 +15,3 @@ Open And Configure Headless Browser
     Call Method    ${OPTIONS}    add_argument    --no-sandbox
     Open Browser  ${BASE URL}  HeadlessChrome  options=${OPTIONS}
     Set Selenium Speed  ${DELAY}
-
-Open And Configure Normal Browser
-    ${OPTIONS}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
-    Call Method    ${OPTIONS}    add_argument    --no-sandbox
-    Open Browser  ${BASE URL}  Chrome  options=${OPTIONS}
-    Set Selenium Speed  0.5
