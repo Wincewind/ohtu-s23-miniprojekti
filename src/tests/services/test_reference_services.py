@@ -49,7 +49,7 @@ class TestReferenceService(unittest.TestCase):
                                                2008, 'Prentice Hall', 'Bakerstreet 123'))
 
     def test_delete_all_books(self):
-        self.ref_ser.delete_all_books()
+        self.ref_ser.delete_all_references()
         self.mock_dataprocessing.delete_all_books.assert_called()
 
     def test_delete_books_by_id(self):

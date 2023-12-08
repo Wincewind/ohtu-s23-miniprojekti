@@ -29,14 +29,16 @@ class ReferenceServices:
     def get_book_by_title(self, title):
         '''Return True if book with title found and if not False'''
         return self.dp.get_book_by_title(title)
-
+    
+    #Martin: get_all_books -> get_all_reference
     def get_all_references(self):
         """Gets all books from the Books table."""
         return self.dp.get_all_references()
-
-    def delete_all_books(self):
+    
+    #Martin: delete_all_books -> delete_all_reference
+    def delete_all_references(self):
         """Removes all books from the Books table."""
-        return self.dp.delete_all_books()
+        return self.dp.delete_all_references()
 
     def delete_books_by_id(self, book_ids: list[int]) -> bool:
         """Deletes books from the Books table based on book ids on a list."""

@@ -39,13 +39,13 @@ class TestDataProcessing(unittest.TestCase):
         with app.app_context():
             dataprocessing.add_book(
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
-            self.assertEqual([], dataprocessing.delete_all_books())
+            self.assertEqual([], dataprocessing.delete_all_references())
 
     @patch('dataprocessing.db.session.execute')
     def test_fail_to_delete_books(self, mock_execute):
         with app.app_context():
             mock_execute.side_effect = Exception("Database error")
-            result = dataprocessing.delete_all_books()
+            result = dataprocessing.delete_all_references()
             self.assertEqual(result, [])
             self.assertEqual(mock_execute.call_count, 2)
 

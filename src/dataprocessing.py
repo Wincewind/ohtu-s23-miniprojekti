@@ -42,11 +42,10 @@ def add_article(authors, title, journal, publication_year, volume, number, pages
         db.session.rollback()
         return False
 
-
+#Martin changed get_all_books -> get_all_references. Affected rerence_services.py and test_dataprocessing.py, but should be OK
 def get_all_references():
     """Fetch books and articles from database and return a list of dictionaries."""
     try:
-        #Original inclusion of all books 
         book_rows = db.session.execute(
             text("""SELECT
                  id, author, title, publication_year, publisher, publisher_address
@@ -64,7 +63,7 @@ def get_all_references():
             for book_row in book_rows
         ]
 
-        #Addition attempt to include all articles as well starts
+        #Martin addition attempt to include all articles as well starts
         article_rows = db.session.execute(
             text("""SELECT
                  id, author, title, journal, publication_year, volume, number, pages
@@ -86,7 +85,7 @@ def get_all_references():
 
         result_dicts = book_dicts + article_dicts
 
-        ### Addition attempt to include all articles as well ends###
+        #Martin addition attempt to include all articles as well ends
 
         db.session.commit()
 
@@ -96,8 +95,8 @@ def get_all_references():
         db.session.rollback()
         return []
 
-
-def delete_all_books():
+#Martin changed delete_all_books -> delete_all_references. Affected rerence_services.py and test_dataprocessing.py, but should be OK
+def delete_all_references():
     """Delete all books from Books-table and return an empty list."""
     try:
         db.session.execute(text("""DELETE FROM Books"""))
