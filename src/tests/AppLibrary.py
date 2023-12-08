@@ -28,7 +28,6 @@ EXPECTED_BIBTEX_FOR_INPUT_1 = ("@book{MARIOT1, "
 class AppLibrary:
     def __init__(self):
         load_dotenv()
-        self.reset_application()
 
     def reset_application(self):
         os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -f')} schema.sql")

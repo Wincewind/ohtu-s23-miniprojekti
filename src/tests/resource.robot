@@ -21,4 +21,4 @@ Open And Configure Normal Browser
     ${OPTIONS}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
     Call Method    ${OPTIONS}    add_argument    --no-sandbox
     Open Browser  ${BASE URL}  Chrome  options=${OPTIONS}
-    Set Selenium Speed  ${DELAY}
+    Set Selenium Speed  0.5
