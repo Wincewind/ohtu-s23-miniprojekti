@@ -26,7 +26,7 @@ class ReferenceServices:
             print("Error adding book to database", error)
             return False
     
-    #Martin: placeholder for add_article
+    #Martin: add_article added
     def add_article(self, authors: str, title: str, journal: str, publication_year: int, volume: int, number: int, pages: int) -> bool:
         """Adds a new article to the Articles table."""
         try:
@@ -54,12 +54,12 @@ class ReferenceServices:
         '''Return True if article with title found and if not False'''
         return self.dp.get_article_by_title(title)
     
-    #Martin: get_all_books -> get_all_reference
+    #Martin: modified get_all_books -> get_all_reference
     def get_all_references(self):
         """Gets all books from the Books table."""
         return self.dp.get_all_references()
     
-    #Martin: delete_all_books -> delete_all_reference
+    #Martin: modified delete_all_books -> delete_all_reference
     def delete_all_references(self):
         """Removes all books from the Books table."""
         return self.dp.delete_all_references()
@@ -68,9 +68,10 @@ class ReferenceServices:
         """Deletes books from the Books table based on book ids on a list."""
         return self.dp.delete_books_by_id(book_ids)
     
-    #Martin: placeholder for delete_article_by_id
-    def delete_books_by_id(self, article_ids: list[int]) -> bool:
-        pass
+    #Martin: delete_article_by_id added
+    def delete_article_by_id(self, article_ids: list[int]) -> bool:
+        """Deletes articles from the Articles table based on article ids on a list."""
+        return self.dp.delete_article_by_id(article_ids)
 
 
 reference_service = ReferenceServices()
