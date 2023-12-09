@@ -14,8 +14,8 @@
 - Code is tested.
 
 ### Acceptance criteria
-<!--#L13-#L41-->
-https://github.com/Wincewind/ohtu-s23-miniprojekti/blob/ef49e95d32cf2bb5df595fea84a3c29ad0772f4b/src/tests/test_reference.robot#L13-L48
+<!--#L11-#L57-->
+https://github.com/Wincewind/ohtu-s23-miniprojekti/blob/27e7d4663b4e4744889ee12546912007d96fc6c5/src/tests/test_reference.robot#L11-L57
 
 
 ## How to setup and run locally (tested in Uni Linux environment, some steps/commands might be different on Windows or Mac):
@@ -95,3 +95,4 @@ Run `build-frontend`, `build-backend` & `init-db`:
 ```bash
 invoke build-full-init-db
 ```
+

@@ -1,28 +1,19 @@
 #!/bin/bash
-# starts postgren on fresher laptop:
-# start-pg.sh &
-# käynnistetään Flask-palvelin taustalle
 
-#get env variables from example.env
-#mv example.env .env
-
-#poetry run python3 src/index.py &
+# Start command for flask app
 poetry run flask --app src/app.py run &
 
-# odetetaan, että palvelin on valmiina ottamaan vastaan pyyntöjä
+# Wait for flask app to be ready to receive requests
 while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/)" != "200" ]];
   do sleep 1;
 done
 
-# suoritetaan testit
+# Run robot-framework tests
 poetry run robot src/tests
 
 status=$?
 
-# pysäytetään Flask-palvelin portissa 5000
+# Halt Flask-server on port 5000
 kill $(lsof -t -i:5000)
 
 exit $status
-
-# shuts down postgre on fresher laptop
-# kill $(ps x|grep pgsql/bin/postgres|grep -v grep|awk '{print $1}')
