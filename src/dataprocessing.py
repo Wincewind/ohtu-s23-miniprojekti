@@ -73,7 +73,7 @@ def delete_books_by_id(book_id: list[int]):
             db.session.execute(text("DELETE FROM Books WHERE id = :book_id"), {
                                "book_id": book_id[0]})
             db.session.commit()
-            
+
         else:
             book_id_strings = ", ".join(
                 [f":book_id_{i}" for i in range(len(book_id))])
@@ -82,7 +82,7 @@ def delete_books_by_id(book_id: list[int]):
                                     for i, id in enumerate(book_id)}
             db.session.execute(text(sql_query), id_string_parameters)
             db.session.commit()
-        
+
         return True
     except Exception as error:
         print("Exception occurred: ", error)
