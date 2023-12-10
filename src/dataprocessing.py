@@ -33,7 +33,7 @@ def get_all_books():
 
         result_dicts = [
             {
-                'book_id': row.id,
+                'id': row.id,
                 'authors': row.author,
                 'title': row.title,
                 'year': row.publication_year,
@@ -65,21 +65,21 @@ def delete_all_books():
         return get_all_books()
 
 
-def delete_books_by_id(book_id: list[int]):
+def delete_books_by_id(id: list[int]):
     """Delete books from Books-table based on book ids on a list."""
     try:
 
-        if len(book_id) == 1:
-            db.session.execute(text("DELETE FROM Books WHERE id = :book_id"), {
-                               "book_id": book_id[0]})
+        if len(id) == 1:
+            db.session.execute(text("DELETE FROM Books WHERE id = :id"), {
+                               "id": id[0]})
             db.session.commit()
 
         else:
-            book_id_strings = ", ".join(
-                [f":book_id_{i}" for i in range(len(book_id))])
-            sql_query = f"DELETE FROM Books WHERE id IN ({book_id_strings})"
-            id_string_parameters = {f"book_id_{i}": id
-                                    for i, id in enumerate(book_id)}
+            id_strings = ", ".join(
+                [f":id_{i}" for i in range(len(id))])
+            sql_query = f"DELETE FROM Books WHERE id IN ({id_strings})"
+            id_string_parameters = {f"id_{i}": id
+                                    for i, id in enumerate(id)}
             db.session.execute(text(sql_query), id_string_parameters)
             db.session.commit()
 

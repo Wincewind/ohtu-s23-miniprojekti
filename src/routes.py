@@ -10,15 +10,12 @@ def index():
 
 @app.route("/add_reference", methods=["POST"])
 def add_reference():
-
     if request.method == "POST":
         authors = request.form["authors"]
         title = request.form["title"]
         year = request.form["year"]
         publisher = request.form["publisher"]
         publisher_address = request.form["publisher_address"]
-
-        print(authors, title, year, publisher, publisher_address)
 
         if reference_service.add_book(authors, title, year,
                                       publisher, publisher_address):

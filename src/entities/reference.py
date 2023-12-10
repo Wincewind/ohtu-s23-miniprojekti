@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class Book:
-    def __init__(self, authors, title, year, publisher, publisher_address, book_id=None):
+    def __init__(self, authors, title, year, publisher, publisher_address, id=None):
 
         # Checks input parameters for potential errors
         # Check that all 'Text' fields are string
@@ -22,4 +22,4 @@ class Book:
         self.year = year
         self.publisher = publisher
         self.publisher_address = publisher_address
-        self.book_id = book_id
+        self.id = id
