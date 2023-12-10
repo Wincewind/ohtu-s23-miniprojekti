@@ -1,36 +1,24 @@
-import React, { useState } from 'react'
-import Dropdown from './Dropdown'
+import React from 'react'
 import BookForm from './BookForm'
 import ArticleForm from './ArticleForm'
 
 const FormContainer = (props) => {
-    const { formData, onInputChange, handleSubmit } = props
-    const [referenceType, setReferenceType] = useState('Book')
-
-    const handleDropdownChange = (selectedValue) => {
-        setReferenceType(selectedValue)
-    }
+    const { formData, onInputChange, onSubmit, referenceType } = props
 
     return (
         <>
-            <Dropdown
-                selectedValue={referenceType}
-                onDropdownChange={handleDropdownChange}
-            />
-            <br />
-            <br />
-            {referenceType === 'Book' && (
+            {referenceType === 'book' && (
                 <BookForm
                     formData={formData}
                     onInputChange={onInputChange}
-                    handleSubmit={handleSubmit}
+                    handleSubmit={onSubmit}
                 />
             )}
-            {referenceType === 'Article' && (
+            {referenceType === 'article' && (
                 <ArticleForm
                     formData={formData}
                     onInputChange={onInputChange}
-                    handleSubmit={handleSubmit}
+                    handleSubmit={onSubmit}
                 />
             )}
         </>

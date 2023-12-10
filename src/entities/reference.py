@@ -22,4 +22,4 @@ class Book:
         self.year = year
         self.publisher = publisher
         self.publisher_address = publisher_address
-        self.book_id = book_id
+        self.id = book_id
