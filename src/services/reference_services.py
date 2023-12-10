@@ -1,4 +1,4 @@
-from entities.reference import Book
+from entities.reference import Book, Article
 import dataprocessing
 
 
@@ -8,24 +8,32 @@ class ReferenceServices:
         # Sets up ReferenceServices-entity
         self.dp = dp
 
-    def add_book(self, title=None, type=None, authors=None, year=None,
-                 publisher=None, publisher_address=None, journal=None,
-                 volume=None, number=None, pages=None) -> bool:
-        """Adds a new book to the Books table."""
+    def add_book(self, **kwargs) -> bool:
+        """Adds a new reference to the Reference table."""
         try:
-
-            new_book = Book(title, type, authors, year, publisher,
-                            publisher_address, journal, volume, number, pages)
-
             # Check if the book with the same title already exists
-            if self.get_book_by_title(new_book.title):
-                print("Book already exists in the database")
-                raise ValueError("Book already exists in the database")
+            if len(kwargs["title"]) != 0 and self.get_book_by_title(kwargs["title"]):
+                print("Reference already exists in the database")
+                raise ValueError("Reference already exists in the database")
 
-            self.dp.add_book(new_book.title, new_book.type, new_book.authors, new_book.year,
-                             new_book.publisher, new_book.publisher_address,
-                             new_book.journal, new_book.volume, new_book.number,
-                             new_book.pages)
+            if kwargs["ref_type"] not in ["book","article"]:
+                raise ValueError("Undefined Reference type:",kwargs["ref_type"])
+            if kwargs["ref_type"] == "book":
+                new_ref = Book(title=kwargs["title"], authors=kwargs["authors"],
+                               year=kwargs["year"], publisher=kwargs["publisher"],
+                                publisher_address=kwargs["publisher_address"])
+                self.dp.add_reference(title=new_ref.title, ref_type=new_ref.ref_type, author=new_ref.authors,
+                             year=new_ref.year, publisher=new_ref.publisher,
+                             publisher_address=new_ref.publisher_address)
+            elif kwargs["ref_type"] == "article":
+                print('bep')
+                new_ref = Article(title=kwargs["title"], authors=kwargs["authors"],
+                                  journal=kwargs["journal"], volume=kwargs["volume"],
+                                  number=kwargs["number"], pages=kwargs["pages"],
+                                  year=kwargs["year"])
+                self.dp.add_reference(title=new_ref.title, ref_type=new_ref.ref_type, author=new_ref.authors,
+                                      journal=new_ref.journal, volume=new_ref.volume, number=new_ref.number,
+                                      pages=new_ref.pages, year=new_ref.year)
             return True
         except Exception as error:
             print("Error adding book to database", error)

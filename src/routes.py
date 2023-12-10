@@ -12,21 +12,21 @@ def index():
 def add_reference():
     if request.method == "POST":
         # changed request.form["field"] to this to add a default empty string
-        authors = request.form.get("authors", "")
-        title = request.form.get("title", "")
-        year = request.form.get("year", "")
-        publisher = request.form.get("publisher", "")
-        publisher_address = request.form.get("publisher_address", "")
-        journal = request.form.get("journal", "")
-        volume = request.form.get("volume", "")
-        number = request.form.get("number", "")
-        pages = request.form.get("page", "")
-        type = request.form.get("type", "")
+        authors = request.form.get("authors", None)
+        title = request.form.get("title", None)
+        year = request.form.get("year", None)
+        publisher = request.form.get("publisher", None)
+        publisher_address = request.form.get("publisher_address", None)
+        journal = request.form.get("journal", None)
+        volume = request.form.get("volume", None)
+        number = request.form.get("number", None)
+        pages = request.form.get("page", None)
+        ref_type = request.form.get("type", None)
 
-        if reference_service.add_book(title, type, authors, year,
-                            publisher, publisher_address,
-                            journal, volume, number,
-                            pages):
+        if reference_service.add_book(title=title, ref_type=ref_type, authors=authors, year=year,
+                            publisher=publisher, publisher_address=publisher_address,
+                            journal=journal, volume=volume, number=number,
+                            pages=pages):
             return jsonify({"message": "Reference added"}), 201
         else:
             return jsonify({"message": "Error occurred when adding reference"}), 501

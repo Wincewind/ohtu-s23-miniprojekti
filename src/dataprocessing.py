@@ -3,10 +3,24 @@ from db import db
 from entities.reference import Book
 
 
-def add_book(title=None, type=None, authors=None, year=None, publisher=None, publisher_address=None,
-             journal=None, volume=None, number=None, pages=None):
+def add_reference(**kwargs):
     """Insert a new book into the Books table."""
+    insert_values = {
+        'author':None,
+        'title':None,
+        'year':None,
+        'publisher':None,
+        'publisher_address':None,
+        'journal':None,
+        'volume':None,
+        'number':None,
+        'pages':None,
+        'type':None
+    }
+    for key,item in kwargs.items():
+        insert_values[key] = item
     try:
+        print('hep')
         db.session.execute(
             text("""INSERT
             INTO Books 
@@ -15,10 +29,7 @@ def add_book(title=None, type=None, authors=None, year=None, publisher=None, pub
             VALUES
             (:author, :title, :year, :publisher, :publisher_address, :journal,
                  :volume, :number, :pages, :type)"""),
-            {"author": authors, "title": title, "year": year,
-             "publisher": publisher, "publisher_address": publisher_address,
-             "journal": journal, "volume": volume, "number": number, "pages": pages,
-             "type": type}
+                 insert_values
         )
         db.session.commit()
         return True
@@ -33,7 +44,8 @@ def get_all_books():
     try:
         rows = db.session.execute(
             text("""SELECT
-                 id, author, title, publication_year, publisher, publisher_address
+                 id, author, title, publication_year, publisher,
+                 publisher_address, journal, volume, number, pages, type
                  FROM Books"""),).mappings().all()
 
         result_dicts = [
@@ -43,7 +55,12 @@ def get_all_books():
                 'title': row.title,
                 'year': row.publication_year,
                 'publisher': row.publisher,
-                'publisher_address': row.publisher_address
+                'publisher_address': row.publisher_address,
+                'journal': row.journal,
+                'volume': row.volume,
+                'number': row.number,
+                'pages': row.pages,
+                'type': row.type
             }
             for row in rows
         ]
