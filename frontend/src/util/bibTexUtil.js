@@ -2,10 +2,10 @@ export const convertToBibTex = (references) => {
     return references
         .map((reference) => {
             let bibtexString
-            if (reference.type === 'book') {
-                bibtexString = getBookBibtexString(reference)
-            } else if (reference.type === 'article') {
+            if (reference.type === 'article') {
                 bibtexString = getArticleBibtexString(reference)
+            } else {
+                bibtexString = getBookBibtexString(reference)
             }
             return bibtexString
         })
