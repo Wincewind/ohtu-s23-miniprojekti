@@ -24,9 +24,9 @@ def add_reference():
         type = request.form.get("type", "")
 
         if reference_service.add_book(title, type, authors, year,
-                                      publisher, publisher_address,
-                                      journal, volume, number,
-                                      pages):
+                            publisher, publisher_address,
+                            journal, volume, number,
+                            pages):
             return jsonify({"message": "Reference added"}), 201
         else:
             return jsonify({"message": "Error occurred when adding reference"}), 501
