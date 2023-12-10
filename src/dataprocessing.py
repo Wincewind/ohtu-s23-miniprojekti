@@ -65,21 +65,21 @@ def delete_all_books():
         return get_all_books()
 
 
-def delete_books_by_id(id: list[int]):
+def delete_books_by_id(ids: list[int]):
     """Delete books from Books-table based on book ids on a list."""
     try:
 
-        if len(id) == 1:
+        if len(ids) == 1:
             db.session.execute(text("DELETE FROM Books WHERE id = :id"), {
-                               "id": id[0]})
+                               "id": ids[0]})
             db.session.commit()
 
         else:
             id_strings = ", ".join(
-                [f":id_{i}" for i in range(len(id))])
+                [f":id_{i}" for i in range(len(ids))])
             sql_query = f"DELETE FROM Books WHERE id IN ({id_strings})"
             id_string_parameters = {f"id_{i}": id
-                                    for i, id in enumerate(id)}
+                                    for i, id in enumerate(ids)}
             db.session.execute(text(sql_query), id_string_parameters)
             db.session.commit()
 
