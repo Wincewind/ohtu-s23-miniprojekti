@@ -8,19 +8,24 @@ class ReferenceServices:
         # Sets up ReferenceServices-entity
         self.dp = dp
 
-    def add_book(self, authors: str, title: str, year: int, publisher: str, publisher_address: str) -> bool:
+    def add_book(self, title=None, type=None, authors=None, year=None,
+                 publisher=None, publisher_address=None, journal=None,
+                 volume=None, number=None, pages=None) -> bool:
         """Adds a new book to the Books table."""
         try:
 
-            new_book = Book(authors, title, year, publisher, publisher_address)
+            new_book = Book(title, type, authors, year, publisher,
+                            publisher_address, journal, volume, number, pages)
 
             # Check if the book with the same title already exists
             if self.get_book_by_title(new_book.title):
                 print("Book already exists in the database")
                 raise ValueError("Book already exists in the database")
 
-            self.dp.add_book(new_book.authors, new_book.title,
-                             new_book.year, new_book.publisher, new_book.publisher_address)
+            self.dp.add_book(new_book.title, new_book.type, new_book.authors, new_book.year,
+                             new_book.publisher, new_book.publisher_address,
+                             new_book.journal, new_book.volume, new_book.number,
+                             new_book.pages)
             return True
         except Exception as error:
             print("Error adding book to database", error)

@@ -11,12 +11,14 @@ class TestDataProcessing(unittest.TestCase):
         os.system("psql -c 'create database testdb;'")
 
     def setUp(self):
-        os.system(f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -d testdb -f')} src/tests/test-schema.sql")
+        os.system(
+            f"{os.getenv('PSQL_SCHEMA_COMMAND','psql -d testdb -f')} src/tests/test-schema.sql")
 
     def test_add_book(self):
         with app.app_context():
             self.assertEqual(True, dataprocessing.add_book(
-                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street"))
+                authors="Wincewind", title="My Life", year=2000, publisher="My mom",
+                publisher_address="123 Noway Street"))
 
     def test_fail_to_add_book(self):
         with app.app_context():
@@ -53,9 +55,11 @@ class TestDataProcessing(unittest.TestCase):
         with app.app_context():
             dataprocessing.add_book(
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
-            result = dataprocessing.get_all_books() # Get book from database (listed dictionary)
+            # Get book from database (listed dictionary)
+            result = dataprocessing.get_all_books()
             # Return the id of the book as a list
-            self.assertEqual(True, dataprocessing.delete_books_by_id([result[0]['id']]))
+            self.assertEqual(
+                True, dataprocessing.delete_books_by_id([result[0]['id']]))
             self.assertEqual(2, len(dataprocessing.get_all_books()))
 
     def test_delete_multiple_books(self):
@@ -65,7 +69,8 @@ class TestDataProcessing(unittest.TestCase):
                 "Murray, John", "338 Euston Road London")
             dataprocessing.add_book(
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
-            result = dataprocessing.get_all_books() # Returns both books from database (listed dictionary)
+            # Returns both books from database (listed dictionary)
+            result = dataprocessing.get_all_books()
             # Get the ids of the books as a list
             ids = [id['id'] for id in result]
             self.assertEqual(True, dataprocessing.delete_books_by_id(ids))
@@ -83,10 +88,11 @@ class TestDataProcessing(unittest.TestCase):
             dataprocessing.add_book(
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
             self.assertEqual(True, dataprocessing.get_book_by_title("My Life"))
-    
+
     def test_fail_to_get_book_by_title(self):
         with app.app_context():
-            self.assertEqual(False, dataprocessing.get_book_by_title("Your Life"))
+            self.assertEqual(
+                False, dataprocessing.get_book_by_title("Your Life"))
 
     @patch('dataprocessing.db.session.execute')
     def test_fail_to_get_book_by_title_database_error(self, mock_execute):

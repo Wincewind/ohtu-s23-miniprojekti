@@ -3,17 +3,22 @@ from db import db
 from entities.reference import Book
 
 
-def add_book(authors, title, year, publisher, publisher_address):
+def add_book(title=None, type=None, authors=None, year=None, publisher=None, publisher_address=None,
+             journal=None, volume=None, number=None, pages=None):
     """Insert a new book into the Books table."""
     try:
         db.session.execute(
             text("""INSERT
             INTO Books 
-            (author, title, publication_year, publisher, publisher_address)
+            (author, title, publication_year, publisher, publisher_address,
+                 journal, volume, number, pages, type)
             VALUES
-            (:author, :title, :year, :publisher, :publisher_address)"""),
+            (:author, :title, :year, :publisher, :publisher_address, :journal,
+                 :volume, :number, :pages, :type)"""),
             {"author": authors, "title": title, "year": year,
-             "publisher": publisher, "publisher_address": publisher_address}
+             "publisher": publisher, "publisher_address": publisher_address,
+             "journal": journal, "volume": volume, "number": number, "pages": pages,
+             "type": type}
         )
         db.session.commit()
         return True
@@ -88,6 +93,7 @@ def delete_books_by_id(ids: list[int]):
         print("Exception occurred: ", error)
         db.session.rollback()
         return False
+
 
 def get_book_by_title(title):
     """Return True if title found and False if not"""
