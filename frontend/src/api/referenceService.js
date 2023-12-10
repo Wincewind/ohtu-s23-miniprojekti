@@ -6,7 +6,7 @@ export const addReference = async (formData) => {
         })
 
         if (!response.ok) {
-            const responseData = response.json()
+            const responseData = await response.json()
             throw new Error(JSON.stringify(responseData.message))
         }
 
