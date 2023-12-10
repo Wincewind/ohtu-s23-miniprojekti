@@ -24,7 +24,7 @@ const App = () => {
     }, [])
 
     const handleDoiFetched = async (metadata) => {
-        setReferenceFormData(parseDoiMetaData(metadata))
+        setReferenceFormData(parseDoiMetaData(metadata, referenceType))
     }
 
     const handleReferenceFormInputChange = (name, value) => {
@@ -50,6 +50,7 @@ const App = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         const form = new FormData(event.target)
+        form.append('type', referenceType)
 
         try {
             await addReference(form)
