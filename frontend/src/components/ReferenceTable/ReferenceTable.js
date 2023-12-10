@@ -148,6 +148,18 @@ const ReferenceTable = (props) => {
                                         <TableCell align="right">
                                             {row.publisher_address}
                                         </TableCell>
+                                        <TableCell align="right">
+                                            {row.journal}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {row.volume}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {row.number}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {row.pages}
+                                        </TableCell>
                                     </TableRow>
                                 )
                             })}
@@ -157,7 +169,7 @@ const ReferenceTable = (props) => {
                                         height: 53 * emptyRows,
                                     }}
                                 >
-                                    <TableCell colSpan={6} />
+                                    <TableCell colSpan={10} />
                                 </TableRow>
                             )}
                         </TableBody>

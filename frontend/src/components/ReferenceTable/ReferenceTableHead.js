@@ -39,6 +39,30 @@ const headCells = [
         disablePadding: false,
         label: 'Publisher Address',
     },
+    {
+        id: 'journal',
+        numeric: true,
+        disablePadding: false,
+        label: 'Journal',
+    },
+    {
+        id: 'volume',
+        numeric: true,
+        disablePadding: false,
+        label: 'Volume',
+    },
+    {
+        id: 'number',
+        numeric: true,
+        disablePadding: false,
+        label: 'Number',
+    },
+    {
+        id: 'pages',
+        numeric: true,
+        disablePadding: false,
+        label: 'Pages',
+    },
 ]
 
 const ReferenceTableHead = (props) => {
