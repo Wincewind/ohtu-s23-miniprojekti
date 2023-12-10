@@ -38,9 +38,9 @@ class ReferenceServices:
         """Removes all books from the Books table."""
         return self.dp.delete_all_books()
 
-    def delete_books_by_id(self, id: list[int]) -> bool:
+    def delete_books_by_id(self, ids: list[int]) -> bool:
         """Deletes books from the Books table based on book ids on a list."""
-        return self.dp.delete_books_by_id(id)
+        return self.dp.delete_books_by_id(ids)
 
 
 reference_service = ReferenceServices()
