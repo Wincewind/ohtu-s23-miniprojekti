@@ -20,7 +20,7 @@ def add_reference():
         journal = request.form.get("journal", None)
         volume = request.form.get("volume", None)
         number = request.form.get("number", None)
-        pages = request.form.get("page", None)
+        pages = request.form.get("pages", None)
         ref_type = request.form.get("type", None)
 
         if reference_service.add_book(title=title, ref_type=ref_type, authors=authors, year=year,

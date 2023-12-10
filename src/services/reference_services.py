@@ -22,7 +22,7 @@ class ReferenceServices:
                 new_ref = Book(title=kwargs["title"], authors=kwargs["authors"],
                                year=kwargs["year"], publisher=kwargs["publisher"],
                                 publisher_address=kwargs["publisher_address"])
-                self.dp.add_reference(title=new_ref.title, ref_type=new_ref.ref_type, author=new_ref.authors,
+                self.dp.add_reference(title=new_ref.title, type=new_ref.ref_type, author=new_ref.authors,
                              year=new_ref.year, publisher=new_ref.publisher,
                              publisher_address=new_ref.publisher_address)
             elif kwargs["ref_type"] == "article":
@@ -30,7 +30,7 @@ class ReferenceServices:
                                   journal=kwargs["journal"], volume=kwargs["volume"],
                                   number=kwargs["number"], pages=kwargs["pages"],
                                   year=kwargs["year"])
-                self.dp.add_reference(title=new_ref.title, ref_type=new_ref.ref_type, author=new_ref.authors,
+                self.dp.add_reference(title=new_ref.title, type=new_ref.ref_type, author=new_ref.authors,
                                       journal=new_ref.journal, volume=new_ref.volume, number=new_ref.number,
                                       pages=new_ref.pages, year=new_ref.year)
             return True

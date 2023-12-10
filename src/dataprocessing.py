@@ -53,6 +53,7 @@ def get_all_books():
                 'authors': row.author,
                 'title': row.title,
                 'year': row.publication_year,
+                'publication_year': row.publication_year,
                 'publisher': row.publisher,
                 'publisher_address': row.publisher_address,
                 'journal': row.journal,
