@@ -15,7 +15,7 @@ import { getComparator } from './referenceTableUtil'
 const ReferenceTable = (props) => {
     const { rows, onDelete, onDownload } = props
     const [order, setOrder] = React.useState('desc')
-    const [orderBy, setOrderBy] = React.useState('book_id')
+    const [orderBy, setOrderBy] = React.useState('id')
     const [selected, setSelected] = React.useState([])
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(10)
@@ -28,7 +28,7 @@ const ReferenceTable = (props) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.book_id)
+            const newSelected = rows.map((n) => n.id)
             setSelected(newSelected)
             return
         }
@@ -113,14 +113,14 @@ const ReferenceTable = (props) => {
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
-                                const isItemSelected = isSelected(row.book_id)
+                                const isItemSelected = isSelected(row.id)
                                 const labelId = `enhanced-table-checkbox-${index}`
 
                                 return (
                                     <TableRow
                                         hover
                                         onClick={(event) =>
-                                            handleClick(event, row.book_id)
+                                            handleClick(event, row.id)
                                         }
                                         role="checkbox"
                                         aria-checked={isItemSelected}

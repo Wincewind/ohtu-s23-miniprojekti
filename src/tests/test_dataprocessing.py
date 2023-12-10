@@ -55,7 +55,7 @@ class TestDataProcessing(unittest.TestCase):
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
             result = dataprocessing.get_all_books() # Get book from database (listed dictionary)
             # Return the id of the book as a list
-            self.assertEqual(True, dataprocessing.delete_books_by_id([result[0]['book_id']]))
+            self.assertEqual(True, dataprocessing.delete_books_by_id([result[0]['id']]))
             self.assertEqual(2, len(dataprocessing.get_all_books()))
 
     def test_delete_multiple_books(self):
@@ -67,7 +67,7 @@ class TestDataProcessing(unittest.TestCase):
                 "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
             result = dataprocessing.get_all_books() # Returns both books from database (listed dictionary)
             # Get the ids of the books as a list
-            ids = [id['book_id'] for id in result]
+            ids = [id['id'] for id in result]
             self.assertEqual(True, dataprocessing.delete_books_by_id(ids))
             self.assertEqual(0, len(dataprocessing.get_all_books()))
 

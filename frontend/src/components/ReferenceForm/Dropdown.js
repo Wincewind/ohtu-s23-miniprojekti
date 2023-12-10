@@ -9,8 +9,8 @@ const Dropdown = ({ selectedValue, onDropdownChange }) => {
                 value={selectedValue}
                 onChange={(e) => onDropdownChange(e.target.value)}
             >
-                <option value="Book">Book</option>
-                <option value="Article">Article</option>
+                <option value="book">Book</option>
+                <option value="article">Article</option>
             </select>
         </>
     )
