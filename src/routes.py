@@ -11,14 +11,22 @@ def index():
 @app.route("/add_reference", methods=["POST"])
 def add_reference():
     if request.method == "POST":
-        authors = request.form["authors"]
-        title = request.form["title"]
-        year = request.form["year"]
-        publisher = request.form["publisher"]
-        publisher_address = request.form["publisher_address"]
+        # changed request.form["field"] to this to add a default empty string
+        authors = request.form.get("authors", "")
+        title = request.form.get("title", "")
+        year = request.form.get("year", "")
+        publisher = request.form.get("publisher", "")
+        publisher_address = request.form.get("publisher_address", "")
+        journal = request.form.get("journal", "")
+        volume = request.form.get("volume", "")
+        number = request.form.get("number", "")
+        pages = request.form.get("page", "")
+        type = request.form.get("type", "")
 
-        if reference_service.add_book(authors, title, year,
-                                      publisher, publisher_address):
+        if reference_service.add_book(title, type, authors, year,
+                                      publisher, publisher_address,
+                                      journal, volume, number,
+                                      pages):
             return jsonify({"message": "Reference added"}), 201
         else:
             return jsonify({"message": "Error occurred when adding reference"}), 501
