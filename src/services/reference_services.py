@@ -17,7 +17,7 @@ class ReferenceServices:
                 raise ValueError("Reference already exists in the database")
 
             if kwargs["ref_type"] not in ["book","article"]:
-                raise ValueError("Undefined Reference type:",kwargs["ref_type"])
+                raise ValueError("Undefined Reference type:", kwargs["ref_type"])
             if kwargs["ref_type"] == "book":
                 new_ref = Book(title=kwargs["title"], authors=kwargs["authors"],
                                year=kwargs["year"], publisher=kwargs["publisher"],
@@ -26,7 +26,6 @@ class ReferenceServices:
                              year=new_ref.year, publisher=new_ref.publisher,
                              publisher_address=new_ref.publisher_address)
             elif kwargs["ref_type"] == "article":
-                print('bep')
                 new_ref = Article(title=kwargs["title"], authors=kwargs["authors"],
                                   journal=kwargs["journal"], volume=kwargs["volume"],
                                   number=kwargs["number"], pages=kwargs["pages"],

@@ -17,13 +17,12 @@ class TestDataProcessing(unittest.TestCase):
     def test_add_book(self):
         with app.app_context():
             self.assertEqual(True, dataprocessing.add_reference(
-                authors="Wincewind", title="My Life", year=2000, publisher="My mom",
+                author="Wincewind", title="My Life", year=2000, publisher="My mom",
                 publisher_address="123 Noway Street"))
 
     def test_fail_to_add_book(self):
         with app.app_context():
-            self.assertEqual(False, dataprocessing.add_reference(
-                None, None, None, None, None))
+            self.assertEqual(False, dataprocessing.add_reference())
 
     def test_get_all_books(self):
         with app.app_context():
@@ -40,7 +39,8 @@ class TestDataProcessing(unittest.TestCase):
     def test_delete_all_books(self):
         with app.app_context():
             dataprocessing.add_reference(
-                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+                author="Wincewind", title="My Life", year=2000, publisher="My Dad", 
+                publisher_address="123 Noway Street")
             self.assertEqual([], dataprocessing.delete_all_books())
 
     @patch('dataprocessing.db.session.execute')
@@ -54,7 +54,8 @@ class TestDataProcessing(unittest.TestCase):
     def test_delete_single_book(self):
         with app.app_context():
             dataprocessing.add_reference(
-                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+                author="Wincewind", title="My Life", year=2000, publisher="My Dad", 
+                publisher_address="123 Noway Street")
             # Get book from database (listed dictionary)
             result = dataprocessing.get_all_books()
             # Return the id of the book as a list
@@ -64,10 +65,11 @@ class TestDataProcessing(unittest.TestCase):
     def test_delete_multiple_books(self):
         with app.app_context():
             dataprocessing.add_reference(
-                "Hawking, Stephen", "Brief Answers to the Big Questions", 2018,
-                "Murray, John", "338 Euston Road London")
+                author="Hawking, Stephen", title="Brief Answers to the Big Questions", year=2018,
+                publisher="Murray, John", publisher_address="338 Euston Road London")
             dataprocessing.add_reference(
-                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+                author="Wincewind", title="My Life", year=2000, publisher="My Dad", 
+                publisher_address="123 Noway Street")
             # Returns both books from database (listed dictionary)
             result = dataprocessing.get_all_books()
             # Get the ids of the books as a list
@@ -85,7 +87,8 @@ class TestDataProcessing(unittest.TestCase):
     def test_get_book_by_title(self):
         with app.app_context():
             dataprocessing.add_reference(
-                "Wincewind", "My Life", 2000, "My mom", "123 Noway Street")
+                author="Wincewind", title="My Life", year=2000, publisher="My Dad",
+                publisher_address="123 Noway Street")
             self.assertEqual(True, dataprocessing.get_book_by_title("My Life"))
 
     def test_fail_to_get_book_by_title(self):

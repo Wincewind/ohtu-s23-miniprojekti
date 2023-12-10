@@ -20,7 +20,6 @@ def add_reference(**kwargs):
     for key,item in kwargs.items():
         insert_values[key] = item
     try:
-        print('hep')
         db.session.execute(
             text("""INSERT
             INTO Books 
