@@ -2,12 +2,12 @@ DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS UserBooks CASCADE;
 DROP TABLE IF EXISTS Books CASCADE;
 
-"""
+/*
 REFACTOR: Are we actually using Users and
 UserBooks? If not, fuhgettaboutit.
 
 REFACTOR: rename Books -> References.
-"""
+*/
 
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
@@ -21,7 +21,6 @@ CREATE TABLE Books (
     title TEXT UNIQUE NOT NULL,
     publisher TEXT,
     publisher_address TEXT,
-    publication_year INT
     journal TEXT,
     publication_year INT,
     volume INT,
