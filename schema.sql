@@ -25,7 +25,8 @@ CREATE TABLE Books (
     publication_year INT,
     volume INT,
     number INT,
-    pages TEXT
+    pages TEXT,
+    type TEXT
 );
 
 CREATE TABLE UserBooks (
