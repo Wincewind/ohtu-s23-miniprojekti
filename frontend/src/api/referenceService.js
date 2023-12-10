@@ -6,7 +6,8 @@ export const addReference = async (formData) => {
         })
 
         if (!response.ok) {
-            throw new Error('Submit failed: ' + response.statusText)
+            const responseData = response.json()
+            throw new Error(JSON.stringify(responseData.message))
         }
 
         return response

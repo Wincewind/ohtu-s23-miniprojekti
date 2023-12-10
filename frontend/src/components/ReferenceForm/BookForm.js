@@ -1,23 +1,4 @@
-import React from 'react'
-import { addReference } from '../api/referenceService'
-
-const ReferenceForm = (props) => {
-    const { onReferenceAdded, formData, onInputChange } = props
-
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        const form = new FormData(event.target)
-
-        try {
-            await addReference(form)
-            onReferenceAdded()
-            alert('Reference added!')
-        } catch (error) {
-            console.error('Submit failed:', error)
-            alert('Submit failed.')
-        }
-    }
-
+const BookForm = ({ formData, onInputChange, handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
             <label>
@@ -84,4 +65,4 @@ const ReferenceForm = (props) => {
     )
 }
 
-export default ReferenceForm
+export default BookForm

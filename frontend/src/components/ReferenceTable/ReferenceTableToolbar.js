@@ -7,37 +7,9 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DownloadIcon from '@mui/icons-material/Download'
-import { deleteReferencesInArray } from '../../api/referenceService'
-import { convertToBibTex } from '../../util/bibTexUtil'
 
 const ReferenceTableToolbar = (props) => {
-    const { numSelected, selected, onDelete: fetchReferences, rows } = props
-
-    const handleDelete = async () => {
-        try {
-            await deleteReferencesInArray(selected)
-            await fetchReferences()
-        } catch (error) {
-            console.error('Error fetching data: ', error)
-        }
-    }
-
-    const handleDownload = async () => {
-        const selectedRows = rows.filter((row) =>
-            selected.includes(row.book_id)
-        )
-
-        const bibTexString = convertToBibTex(selectedRows)
-        const fileToDownload = new Blob([bibTexString], { type: 'text/plain' })
-
-        const downloadLink = document.createElement('a')
-        downloadLink.href = URL.createObjectURL(fileToDownload)
-        downloadLink.download = 'exportedReferences.bib'
-
-        document.body.appendChild(downloadLink)
-        downloadLink.click()
-        document.body.removeChild(downloadLink)
-    }
+    const { numSelected, onDelete, onDownload } = props
 
     return (
         <Toolbar
@@ -76,12 +48,12 @@ const ReferenceTableToolbar = (props) => {
             {numSelected > 0 && (
                 <>
                     <Tooltip title="Download">
-                        <IconButton onClick={handleDownload}>
+                        <IconButton onClick={onDownload}>
                             <DownloadIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                        <IconButton onClick={handleDelete}>
+                        <IconButton onClick={onDelete}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>

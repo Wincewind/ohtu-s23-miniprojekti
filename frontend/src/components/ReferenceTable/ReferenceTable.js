@@ -13,7 +13,7 @@ import ReferenceTableToolbar from './ReferenceTableToolbar'
 import { getComparator } from './referenceTableUtil'
 
 const ReferenceTable = (props) => {
-    const { rows, onDelete } = props
+    const { rows, onDelete, onDownload } = props
     const [order, setOrder] = React.useState('desc')
     const [orderBy, setOrderBy] = React.useState('book_id')
     const [selected, setSelected] = React.useState([])
@@ -65,6 +65,16 @@ const ReferenceTable = (props) => {
 
     const isSelected = (id) => selected.indexOf(id) !== -1
 
+    const handleDelete = () => {
+        onDelete(selected)
+        setSelected([])
+    }
+
+    const handleDownload = () => {
+        onDownload(selected)
+        setSelected([])
+    }
+
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
@@ -84,8 +94,8 @@ const ReferenceTable = (props) => {
                 <ReferenceTableToolbar
                     numSelected={selected.length}
                     selected={selected}
-                    onDelete={onDelete}
-                    rows={rows}
+                    onDelete={handleDelete}
+                    onDownload={handleDownload}
                 />
                 <TableContainer>
                     <Table
@@ -148,6 +158,18 @@ const ReferenceTable = (props) => {
                                         <TableCell align="right">
                                             {row.publisher_address}
                                         </TableCell>
+                                        <TableCell align="right">
+                                            {row.journal}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {row.volume}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {row.number}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {row.pages}
+                                        </TableCell>
                                     </TableRow>
                                 )
                             })}
@@ -157,7 +179,7 @@ const ReferenceTable = (props) => {
                                         height: 53 * emptyRows,
                                     }}
                                 >
-                                    <TableCell colSpan={6} />
+                                    <TableCell colSpan={10} />
                                 </TableRow>
                             )}
                         </TableBody>
