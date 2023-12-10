@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AppTitle from './components/AppTitle'
 import DoiForm from './components/DoiForm'
-import ReferenceForm from './components/ReferenceForm'
+import FormContainer from './components/ReferenceForm/FormContainer'
 import ReferenceTable from './components/ReferenceTable/ReferenceTable'
 import { fetchAllReferences } from './util/fetchUtil'
 import { parseDoiMetaData } from './util/DoiUtil'
@@ -42,7 +42,7 @@ const App = () => {
             <AppTitle titleText="latex citation tool" />
             <br />
             <DoiForm onDoiFetched={handleDoiFetched} />
-            <ReferenceForm
+            <FormContainer
                 onReferenceAdded={handleReferenceAdded}
                 formData={referenceFormData}
                 onInputChange={handleReferenceFormInputChange}
