@@ -22,7 +22,7 @@ def add_reference():
         pages = request.form.get("pages", None)
         ref_type = request.form.get("type", None)
 
-        if reference_service.add_book(title=title, ref_type=ref_type, authors=authors, year=year,
+        if reference_service.add_reference(title=title, ref_type=ref_type, authors=authors, year=year,
                             publisher=publisher, publisher_address=publisher_address,
                             journal=journal, volume=volume, number=number,
                             pages=pages):
@@ -40,7 +40,7 @@ def get_all_references():
 def delete_references():
     if request.method == "POST":
         refs_to_remove = request.get_json()
-        if reference_service.delete_books_by_id(refs_to_remove):
+        if reference_service.delete_references_by_id(refs_to_remove):
             return jsonify({"message": "Deletion succesful"}), 201
         else:
             return jsonify({"message": "Error occurred when deleting reference(s)"}), 501
