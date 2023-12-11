@@ -59,7 +59,7 @@
 
 .doiInputStyle {
     width: 100%;
-    max-width: 300px; /* Adjust as needed */
+    max-width: 300px;
     padding: 5px;
     border: 2px solid #ccc;
     border-radius: 15px;
@@ -88,7 +88,7 @@
     align-items: center;
     gap: 10px;
     text-align: center;
-    margin-bottom: 10px; /* Adjust as needed */
+    margin-bottom: 10px;
     margin-right: -105px;
 }
 
@@ -100,10 +100,10 @@
 
 .dropdownStyle {
     width: 100%;
-    max-width: 100px; /* Adjust as needed */
+    max-width: 100px;
     padding: 5px;
     border: 2px solid #ccc;
     border-radius: 15px;
-    cursor: pointer; /* Indicates the dropdown is clickable */
-    font-size: 14px; /* Adjust as needed */
+    cursor: pointer;
+    font-size: 14px;
 }
