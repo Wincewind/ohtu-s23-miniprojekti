@@ -1,0 +1,109 @@
+.formStyle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+}
+
+.labelStyle {
+    margin-right: 15px;
+    min-width: 100px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.inputStyle {
+    width: 100%;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+}
+
+.fieldContainerStyle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.buttonStyle {
+    background-color: grey;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.buttonStyle:hover {
+    background-color: #555;
+}
+
+.doiFormStyle {
+    align-items: center;
+    text-align: center;
+}
+
+.doiLabelStyle {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.doiInputStyle {
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+}
+
+.doiButtonStyle {
+    background-color: grey;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-right: 320px;
+}
+
+.doiButtonStyle:hover {
+    background-color: #555;
+}
+
+.dropdownContainerStyle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    margin-bottom: 10px; /* Adjust as needed */
+    margin-right: -105px;
+}
+
+.dropdownLabelStyle {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+}
+
+.dropdownStyle {
+    width: 100%;
+    max-width: 100px; /* Adjust as needed */
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    cursor: pointer; /* Indicates the dropdown is clickable */
+    font-size: 14px; /* Adjust as needed */
+}

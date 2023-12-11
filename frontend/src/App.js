@@ -83,22 +83,28 @@ const App = () => {
 
     return (
         <div>
-            <AppTitle titleText="latex citation tool" />
+            <div style={{ textAlign: 'center' }}>
+                <AppTitle titleText="LaTex Citation Tool" />
+            </div>
+            <div style={{ textAlign: 'center' }}>
             <br />
             <DoiForm onDoiFetched={handleDoiFetched} />
-            <Dropdown
+                <Dropdown
                 selectedValue={referenceType}
                 onDropdownChange={handleDropdownChange}
-            />
+                />
+            </div>
             <br />
             <br />
-            <FormContainer
-                onReferenceAdded={handleReferenceAdded}
-                formData={referenceFormData}
-                onInputChange={handleReferenceFormInputChange}
-                onSubmit={handleSubmit}
-                referenceType={referenceType}
-            />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <FormContainer
+                    onReferenceAdded={handleReferenceAdded}
+                    formData={referenceFormData}
+                    onInputChange={handleReferenceFormInputChange}
+                    onSubmit={handleSubmit}
+                    referenceType={referenceType}
+                />
+            </div>
             <br />
             <br />
             <ReferenceTable
