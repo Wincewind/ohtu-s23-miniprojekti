@@ -1,34 +1,33 @@
 from sqlalchemy.sql import text
 from db import db
-from entities.reference import Book
 
 
 def add_reference(**kwargs):
-    """Insert a new book into the Books table."""
+    """Insert a new reference into the Reference-table."""
     insert_values = {
-        'author':None,
-        'title':None,
-        'year':None,
-        'publisher':None,
-        'publisher_address':None,
-        'journal':None,
-        'volume':None,
-        'number':None,
-        'pages':None,
-        'type':None
+        'author': None,
+        'title': None,
+        'year': None,
+        'publisher': None,
+        'publisher_address': None,
+        'journal': None,
+        'volume': None,
+        'number': None,
+        'pages': None,
+        'type': None
     }
-    for key,item in kwargs.items():
+    for key, item in kwargs.items():
         insert_values[key] = item
     try:
         db.session.execute(
             text("""INSERT
-            INTO Books 
+            INTO Reference 
             (author, title, publication_year, publisher, publisher_address,
                  journal, volume, number, pages, type)
             VALUES
             (:author, :title, :year, :publisher, :publisher_address, :journal,
                  :volume, :number, :pages, :type)"""),
-                 insert_values
+            insert_values
         )
         db.session.commit()
         return True
@@ -38,14 +37,14 @@ def add_reference(**kwargs):
         return False
 
 
-def get_all_books():
-    """Fetch data from database and return a list of dictionaries."""
+def get_all_references():
+    """Fetch data from Reference-table and return a list of dictionaries."""
     try:
         rows = db.session.execute(
             text("""SELECT
                  id, author, title, publication_year, publisher,
                  publisher_address, journal, volume, number, pages, type
-                 FROM Books"""),).mappings().all()
+                 FROM Reference"""),).mappings().all()
 
         result_dicts = [
             {
@@ -74,32 +73,32 @@ def get_all_books():
         return []
 
 
-def delete_all_books():
-    """Delete all books from Books-table and return an empty list."""
+def delete_all_references():
+    """Delete all references from Reference-table and return an empty list."""
     try:
-        db.session.execute(text("""DELETE FROM Books"""))
+        db.session.execute(text("""DELETE FROM Reference"""))
         db.session.commit()
         return []
 
     except Exception as error:
         print("Error occurred: ", error)
         db.session.rollback()
-        return get_all_books()
+        return get_all_references()
 
 
-def delete_books_by_id(ids: list[int]):
-    """Delete books from Books-table based on book ids on a list."""
+def delete_references_by_id(ids: list[int]):
+    """Delete references from Reference-table based on reference-ids on a list."""
     try:
 
         if len(ids) == 1:
-            db.session.execute(text("DELETE FROM Books WHERE id = :id"), {
+            db.session.execute(text("DELETE FROM Reference WHERE id = :id"), {
                                "id": ids[0]})
             db.session.commit()
 
         else:
             id_strings = ", ".join(
                 [f":id_{i}" for i in range(len(ids))])
-            sql_query = f"DELETE FROM Books WHERE id IN ({id_strings})"
+            sql_query = f"DELETE FROM Reference WHERE id IN ({id_strings})"
             id_string_parameters = {f"id_{i}": id
                                     for i, id in enumerate(ids)}
             db.session.execute(text(sql_query), id_string_parameters)
@@ -112,19 +111,19 @@ def delete_books_by_id(ids: list[int]):
         return False
 
 
-def get_book_by_title(title):
+def get_reference_by_title(title):
     """Return True if title found and False if not"""
     try:
         query = text("""SELECT
                      id, author, title, publication_year, publisher, publisher_address
-                     FROM Books WHERE title = :title"""
+                     FROM Reference WHERE title = :title"""
                      )
 
         result = db.session.execute(query, {'title': title})
-        book = result.fetchone()
+        reference = result.fetchone()
         result.close()
 
-        return bool(book)
+        return bool(reference)
 
     except Exception as error:
         print(f"Error occured: {error}")
