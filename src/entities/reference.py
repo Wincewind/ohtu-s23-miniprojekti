@@ -2,6 +2,7 @@ from datetime import datetime
 
 
 class Book:
+    """Represents a book"""
     def __init__(self, authors, title, year, publisher, publisher_address, book_id=None):
 
         # Checks input parameters for potential errors
