@@ -1,9 +1,17 @@
 from datetime import datetime
 
-
-class Book:
-    def __init__(self, authors, title, year, publisher, publisher_address, book_id=None):
-
+class Reference:
+    def __init__(self, title=None, authors=None,
+                 ref_type=None, ref_id=None, year=None) -> None:
+        self.title = title
+        self.authors = authors
+        self.ref_type = ref_type
+        self.id = ref_id
+        self.year = year
+class Book(Reference):
+    def __init__(self, title=None, authors=None, year=None, publisher=None,
+                 publisher_address=None, book_id=None):
+        super().__init__(title, authors, "book",book_id, year)
         # Checks input parameters for potential errors
         # Check that all 'Text' fields are string
         if not isinstance(authors, str) or \
@@ -17,9 +25,27 @@ class Book:
         if int(year) < 1440 or int(year) > datetime.now().year:
             raise ValueError("Year is out of valid range")
 
-        self.authors = authors
-        self.title = title
-        self.year = year
         self.publisher = publisher
         self.publisher_address = publisher_address
-        self.id = book_id
+
+class Article(Reference):
+    def __init__(self, authors=None, title=None, journal=None,
+                 year=None, volume=None, number=None,
+                 pages=None, article_id=None):
+        super().__init__(title, authors, "article", article_id, year)
+        # Checks input parameters for potential errors
+        # Check that all 'Text' fields are string
+        if not isinstance(authors, str) or \
+            not isinstance(title, str) or \
+                not isinstance(journal, str):
+            raise ValueError(
+                 "Author, title, and journal must be strings")
+
+        # Check that year is in valid range
+        if int(year) < 1440 or int(year) > datetime.now().year:
+            raise ValueError("Year is out of valid range")
+
+        self.journal = journal
+        self.volume = volume
+        self.number = number
+        self.pages = pages

@@ -14,8 +14,8 @@
 - Code is tested.
 
 ### Acceptance criteria
-<!--#L11-#L57-->
-https://github.com/Wincewind/ohtu-s23-miniprojekti/blob/27e7d4663b4e4744889ee12546912007d96fc6c5/src/tests/test_reference.robot#L11-L57
+<!--#L11-#L82-->
+https://github.com/Wincewind/ohtu-s23-miniprojekti/blob/9c89459e49bdeddb3923ef696eb8ee5426c9da4f/src/tests/test_reference.robot#L11-L82
 
 
 ## How to setup and run locally (tested in Uni Linux environment, some steps/commands might be different on Windows or Mac):

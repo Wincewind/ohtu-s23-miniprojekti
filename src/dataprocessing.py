@@ -3,17 +3,32 @@ from db import db
 from entities.reference import Book
 
 
-def add_book(authors, title, year, publisher, publisher_address):
+def add_reference(**kwargs):
     """Insert a new book into the Books table."""
+    insert_values = {
+        'author':None,
+        'title':None,
+        'year':None,
+        'publisher':None,
+        'publisher_address':None,
+        'journal':None,
+        'volume':None,
+        'number':None,
+        'pages':None,
+        'type':None
+    }
+    for key,item in kwargs.items():
+        insert_values[key] = item
     try:
         db.session.execute(
             text("""INSERT
             INTO Books 
-            (author, title, publication_year, publisher, publisher_address)
+            (author, title, publication_year, publisher, publisher_address,
+                 journal, volume, number, pages, type)
             VALUES
-            (:author, :title, :year, :publisher, :publisher_address)"""),
-            {"author": authors, "title": title, "year": year,
-             "publisher": publisher, "publisher_address": publisher_address}
+            (:author, :title, :year, :publisher, :publisher_address, :journal,
+                 :volume, :number, :pages, :type)"""),
+                 insert_values
         )
         db.session.commit()
         return True
@@ -28,7 +43,8 @@ def get_all_books():
     try:
         rows = db.session.execute(
             text("""SELECT
-                 id, author, title, publication_year, publisher, publisher_address
+                 id, author, title, publication_year, publisher,
+                 publisher_address, journal, volume, number, pages, type
                  FROM Books"""),).mappings().all()
 
         result_dicts = [
@@ -37,8 +53,14 @@ def get_all_books():
                 'authors': row.author,
                 'title': row.title,
                 'year': row.publication_year,
+                'publication_year': row.publication_year,
                 'publisher': row.publisher,
-                'publisher_address': row.publisher_address
+                'publisher_address': row.publisher_address,
+                'journal': row.journal,
+                'volume': row.volume,
+                'number': row.number,
+                'pages': row.pages,
+                'type': row.type
             }
             for row in rows
         ]
@@ -88,6 +110,7 @@ def delete_books_by_id(ids: list[int]):
         print("Exception occurred: ", error)
         db.session.rollback()
         return False
+
 
 def get_book_by_title(title):
     """Return True if title found and False if not"""

@@ -9,13 +9,17 @@ Suite Teardown  Close Browser
 ${DELAY}  0.005 seconds  # set this to 0.3-0.5 if you disabled --headless in resource.robot
 
 *** Test Cases ***
-User Can Add Reference To The App
+User Can Add Book Reference To The App 
     Compare Row Count To Expected    0
-    Input Form Values  ${FORM ELEMENTS}  ${TEST INPUT 1}
-    Submit Form
-    Handle Alert
+    Submit Form And Handle Alert  ${TEST INPUT 1}    book
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
-    Compare Row Values To Expected    ${TEST INPUT 1}    2
+    Compare Row Values To Expected    ${TEST INPUT 1}    2    ${BOOK COL INDEXES}
+
+User Can Add Article Reference To The App
+    Compare Row Count To Expected    0
+    Submit Form And Handle Alert  ${TEST INPUT 3}    article
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
+    Compare Row Values To Expected    ${TEST INPUT 3}    2    ${ARTICLE COL INDEXES}
 
 User Cannot Input Reference With Missing Data
     Submit Form
@@ -25,50 +29,74 @@ User Cannot Input Reference With Missing Data
     Compare Row Count To Expected    0
 
 User Can See The Latest Reference First
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 2}
+    Submit Form And Handle Alert  ${TEST INPUT 1}    book
+    Submit Form And Handle Alert  ${TEST INPUT 3}    article
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
-    Compare Row Values To Expected    ${TEST INPUT 1}    2
-    Compare Row Values To Expected    ${TEST INPUT 2}    3
+    Compare Row Values To Expected    ${TEST INPUT 1}    3    ${BOOK COL INDEXES}
+    Compare Row Values To Expected    ${TEST INPUT 3}    2    ${ARTICLE COL INDEXES}
 
 User Can Delete One Reference
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 2}
+    Submit Form And Handle Alert  ${TEST INPUT 1}    book
+    Submit Form And Handle Alert  ${TEST INPUT 2}    book
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
-    Select And Delete Reference  2  # delete second reference
+    Select And Delete Reference  1  # delete first row reference, at which point input 1 will rise to be first
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
-    Compare Row Values To Expected    ${TEST INPUT 1}    1
+    Compare Row Values To Expected    ${TEST INPUT 1}    2    ${BOOK COL INDEXES}
 
 User Can Delete All References
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 2}
+    Submit Form And Handle Alert  ${TEST INPUT 1}    book
+    Submit Form And Handle Alert  ${TEST INPUT 3}    article
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
     Select All References
     Delete References
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    0
 
-User Can Generate A BibTex File From A Reference In Correct Format
+User Can Generate A BibTex File From A Book Reference In Correct Format
     Remove File    ${PATH TO GENERATED BIBTEX}
-    Submit Form And Handle Alert  ${FORM ELEMENTS}  ${TEST INPUT 1}
+    Submit Form And Handle Alert  ${TEST INPUT 1}    book
     Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
     Select And Generate BibTex File From Reference    1
     Wait Until Keyword Succeeds    3    1    Check For File Existance    ${PATH TO GENERATED BIBTEX}
-    Validate Generated Bibtex File
+    Validate Generated Book Bibtex File
     Remove File    ${PATH TO GENERATED BIBTEX}
+
+User Can Generate A BibTex File From Multiple References In Correct Format
+    Remove File    ${PATH TO GENERATED BIBTEX}
+    Submit Form And Handle Alert  ${TEST INPUT 1}    book
+    Submit Form And Handle Alert  ${TEST INPUT 3}    article
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    2
+    Select All References
+    Generate BibTex File
+    Wait Until Keyword Succeeds    3    1    Check For File Existance    ${PATH TO GENERATED BIBTEX}
+    Validate Generated BibTex File For Multiple References
+    Remove File    ${PATH TO GENERATED BIBTEX}
+
+User Can Add References Using DOI Links
+    Select From List By Value    //select    article
+    Input Text    //input[@name='DOI']    ${DOI_3}
+    Click Button    //button[contains(text(),'Get DOI')]
+    Sleep    1s
+    Submit Form
+    Handle Alert
+    Wait Until Keyword Succeeds    3    0.5    Compare Row Count To Expected    1
+    Compare Row Values To Expected    ${TEST INPUT 3}    2    ${ARTICLE COL INDEXES}
 
 *** Keywords ***
 Input Form Values
-    [Arguments]  ${form_elements}  ${values}
-    FOR  ${index}  IN RANGE  ${form_elements.__len__()}
-        Input Text  name=${form_elements[${index}]}  text=${values[${index}]}
+    [Arguments]  ${input_data}
+    FOR    ${kvp}    IN    @{input_data}
+        Input Text  name=${kvp}[0]  text=${kvp}[1]
+        
     END
 
 Submit Form
     Click Button  id:referenceFormSubmitButton
 
 Submit Form And Handle Alert
-    [Arguments]  ${form_elements}  ${values}
-    Input Form Values  ${form_elements}  ${values}
+    [Arguments]  ${values}    ${form_type}
+    Select From List By Value    //select    ${form_type}
+    Sleep    0.5s
+    Input Form Values  ${values}
     Submit Form
     Handle Alert
 
@@ -82,16 +110,17 @@ Compare Row Count To Expected
     Should Be Equal As Numbers    ${row_count}    ${expected_row_count}
 
 Compare Row Values To Expected
-    [Arguments]  ${expected_values}  ${row_num}
-    FOR  ${index}  IN RANGE  ${expected_values.__len__()}
-        ${index}=    Evaluate    ${index} + 2
-        ${value}=    Get Table Cell    locator=//table[1]    row=${row_num}    column=${index}
+    [Arguments]  ${expected_values}  ${row_num}    ${column_idxs}
+    FOR    ${index}    ${col_idx}    IN ENUMERATE    @{column_idxs}
+        ${col_idx}=    Evaluate    ${col_idx} + 1
+        ${value}=    Get Table Cell    locator=//table[1]    row=${row_num}    column=${col_idx}
+        Should Be Equal    ${value}    ${expected_values}[${index}][1]
     END
 
 Select One Reference
     [Arguments]  ${row_index}
     ${adjusted_index}=   Evaluate    ${row_index}
-    ${locator}=    Set Variable    //table[1]//tr[${adjusted_index}]//input[@type='checkbox']
+    ${locator}=    Set Variable    //table[1]//tbody//tr[${adjusted_index}]//input[@type='checkbox']
     Select Checkbox   ${locator}
 
 Select All References

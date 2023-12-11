@@ -37,11 +37,11 @@ const ArticleForm = ({ formData, onInputChange, handleSubmit }) => {
             <label>
                 Year:
                 <input
-                    name="publication_year"
+                    name="year"
                     type="text"
-                    value={formData.publication_year || ''}
+                    value={formData.year || ''}
                     onChange={(e) =>
-                        onInputChange('publication_year', e.target.value)
+                        onInputChange('year', e.target.value)
                     }
                 />
             </label>

@@ -33,10 +33,10 @@ const getArticleBibtexString = (reference) => {
         ` author = {${reference.authors}},` +
         ` title = {${reference.title}},` +
         ` journal = {${reference.journal}},` +
-        ` publication_year = {${reference.publication_year}},` +
-        ` volume = {${reference.volume}}}` +
-        ` number = {${reference.number}}` +
-        ` pages = {${reference.pages}}`
+        ` year = {${reference.year}},` +
+        ` volume = {${reference.volume}},` +
+        ` number = {${reference.number}},` +
+        ` pages = {${reference.pages}}}`
     )
 }
 

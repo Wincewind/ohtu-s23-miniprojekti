@@ -19,8 +19,7 @@ export const parseDoiMetaData = (metadata, referenceType) => {
                     .join(', ') || '',
             title: metadata?.title?.[0] || '',
             journal: metadata?.['container-title']?.[0] || '',
-            publication_year:
-                metadata?.published['date-parts']?.[0]?.[0]?.toString() || '',
+            year: metadata?.published['date-parts']?.[0]?.[0]?.toString() || '',
             volume: metadata?.volume || '',
             number: metadata?.issue || '',
             pages: metadata?.page || '',
