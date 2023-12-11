@@ -1,13 +1,6 @@
 DROP TABLE IF EXISTS Users CASCADE;
-DROP TABLE IF EXISTS UserBooks CASCADE;
-DROP TABLE IF EXISTS Books CASCADE;
-
-/*
-REFACTOR: Are we actually using Users and
-UserBooks? If not, fuhgettaboutit.
-
-REFACTOR: rename Books -> References.
-*/
+DROP TABLE IF EXISTS UserReferences CASCADE;
+DROP TABLE IF EXISTS Reference CASCADE;
 
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
@@ -15,7 +8,7 @@ CREATE TABLE Users (
     password_not_hashed TEXT NOT NULL
 );
 
-CREATE TABLE Books (
+CREATE TABLE Reference (
     id SERIAL PRIMARY KEY,
     author TEXT,
     title TEXT UNIQUE NOT NULL,
@@ -29,9 +22,9 @@ CREATE TABLE Books (
     type TEXT
 );
 
-CREATE TABLE UserBooks (
+CREATE TABLE UserReferences (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES Users(id) ON DELETE CASCADE,
-    book_id INT NOT NULL REFERENCES Books(id) ON DELETE CASCADE,
-    UNIQUE(user_id, book_id)
+    reference_id INT NOT NULL REFERENCES Reference(id) ON DELETE CASCADE,
+    UNIQUE(user_id, reference_id)
 );
