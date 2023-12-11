@@ -11,15 +11,14 @@ def index():
 @app.route("/add_reference", methods=["POST"])
 def add_reference():
     if request.method == "POST":
-        # changed request.form["field"] to this to add a default empty string
         authors = request.form.get("authors", None)
         title = request.form.get("title", None)
-        year = request.form.get("year", None)
+        year = request.form.get("year", None, type=int)
         publisher = request.form.get("publisher", None)
         publisher_address = request.form.get("publisher_address", None)
         journal = request.form.get("journal", None)
-        volume = request.form.get("volume", None)
-        number = request.form.get("number", None)
+        volume = request.form.get("volume", None, type=int)
+        number = request.form.get("number", None,type=int)
         pages = request.form.get("pages", None)
         ref_type = request.form.get("type", None)
 
