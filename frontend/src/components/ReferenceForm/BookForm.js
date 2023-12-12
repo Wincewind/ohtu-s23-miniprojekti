@@ -1,10 +1,10 @@
 import './Form.css'
 
-const BookForm = ({ formData, onInputChange, handleSubmit}) => {
+const BookForm = ({ formData, onInputChange, handleSubmit }) => {
     return (
         <form onSubmit={handleSubmit} className="formStyle">
             <div className="fieldContainerStyle">
-            <label className="labelStyle">Authors:</label>
+                <label className="labelStyle">Authors:</label>
                 <input
                     className="inputStyle"
                     name="authors"
@@ -26,7 +26,7 @@ const BookForm = ({ formData, onInputChange, handleSubmit}) => {
             </div>
             <br />
             <div className="fieldContainerStyle">
-            <label className="labelStyle">Year:</label>
+                <label className="labelStyle">Year:</label>
                 <input
                     className="inputStyle"
                     name="year"
@@ -37,7 +37,7 @@ const BookForm = ({ formData, onInputChange, handleSubmit}) => {
             </div>
             <br />
             <div className="fieldContainerStyle">
-            <label className="labelStyle">Publisher:</label>
+                <label className="labelStyle">Publisher:</label>
                 <input
                     className="inputStyle"
                     name="publisher"
@@ -48,7 +48,7 @@ const BookForm = ({ formData, onInputChange, handleSubmit}) => {
             </div>
             <br />
             <div className="fieldContainerStyle">
-            <label className="labelStyle">Publisher's address:</label>
+                <label className="labelStyle">Publisher's address:</label>
                 <input
                     className="inputStyle"
                     name="publisher_address"
@@ -61,7 +61,11 @@ const BookForm = ({ formData, onInputChange, handleSubmit}) => {
             </div>
             <br />
             <br />
-            <button id="referenceFormSubmitButton" type="submit" className="buttonStyle">
+            <button
+                id="referenceFormSubmitButton"
+                type="submit"
+                className="buttonStyle"
+            >
                 Submit
             </button>
         </form>
