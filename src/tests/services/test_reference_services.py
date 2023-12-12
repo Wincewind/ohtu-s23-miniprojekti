@@ -78,11 +78,8 @@ class TestReferenceService(unittest.TestCase):
                                                     journal="Best Magazine", year=2008, volume="2", number="3", pages="45-50", ref_type="article"))
 
     def test_get_all_references(self):
-        self.ref_ser.add_reference(authors='Garwin, Robert',
-                                   title='Clean Code: A Handbook of Agile Software Craftsmanship',
-                                   year=2008, publisher='Prentice Hall', publisher_address='Bakerstreet 123',
-                                   ref_type="book")
-        self.assertTrue(len(self.ref_ser.get_all_references()) != 0)
+        self.ref_ser.get_all_references()
+        self.mock_dataprocessing.get_all_references.assert_called()
 
     def test_delete_all_references(self):
         self.ref_ser.delete_all_references()
