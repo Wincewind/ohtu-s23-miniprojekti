@@ -8,8 +8,6 @@
 .labelStyle {
     margin-right: 15px;
     min-width: 100px;
-    text-align: center;
-    font-weight: bold;
     font-size: 14px;
     color: #333;
     font-family: Arial, sans-serif;
@@ -18,15 +16,15 @@
 .inputStyle {
     width: 100%;
     padding: 5px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
 .fieldContainerStyle {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10px;
+    min-width: 40vh;
 }
 
 .buttonStyle {
@@ -51,18 +49,19 @@
 }
 
 .doiLabelStyle {
-    font-weight: bold;
-    font-size: 14px;
     color: #333;
     margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .doiInputStyle {
     width: 100%;
     max-width: 300px;
     padding: 5px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
 .doiButtonStyle {
@@ -84,26 +83,21 @@
 
 .dropdownContainerStyle {
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 10px;
-    text-align: center;
-    margin-bottom: 10px;
-    margin-right: -105px;
 }
 
 .dropdownLabelStyle {
     font-weight: bold;
-    font-size: 20px;
     color: #333;
 }
 
 .dropdownStyle {
     width: 100%;
-    max-width: 100px;
+    max-width: 160px;
     padding: 5px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
 }
