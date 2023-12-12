@@ -1,3 +1,5 @@
+import './ReferenceForm/Form.css'
+
 const DoiForm = (props) => {
     const { onDoiFetched } = props
 
@@ -24,13 +26,15 @@ const DoiForm = (props) => {
     }
 
     return (
-        <form onSubmit={handleGetDoi}>
-            <label>
-                DOI Lookup: <input name="DOI" type="text" />
+        <form onSubmit={handleGetDoi} className="doiFormStyle">
+            <label className="doiLabelStyle">
+                DOI Lookup:{' '}
+                <input name="DOI" type="text" className="doiInputStyle" />
             </label>
             <br />
-            <br />
-            <button type="submit">Get DOI</button>
+            <button type="submit" className="doiButtonStyle">
+                Get DOI
+            </button>
             <br />
             <br />
         </form>

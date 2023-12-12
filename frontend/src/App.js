@@ -9,6 +9,7 @@ import { deleteReferencesInArray } from './api/referenceService'
 import { fetchAllReferences } from './util/fetchUtil'
 import { parseDoiMetaData } from './util/DoiUtil'
 import { convertToBibTex } from './util/bibTexUtil'
+import './App.css'
 
 const App = () => {
     const [rows, setRows] = useState([])
@@ -82,23 +83,28 @@ const App = () => {
     }
 
     return (
-        <div>
-            <AppTitle titleText="latex citation tool" />
+        <div className="AppContainer">
+            <div style={{ textAlign: 'center' }}>
+                <AppTitle titleText="LaTex Citation Tool" />
+            </div>
+            <div style={{ textAlign: 'center' }}>
+                <br />
+                <DoiForm onDoiFetched={handleDoiFetched} />
+                <Dropdown
+                    selectedValue={referenceType}
+                    onDropdownChange={handleDropdownChange}
+                />
+            </div>
             <br />
-            <DoiForm onDoiFetched={handleDoiFetched} />
-            <Dropdown
-                selectedValue={referenceType}
-                onDropdownChange={handleDropdownChange}
-            />
-            <br />
-            <br />
-            <FormContainer
-                onReferenceAdded={handleReferenceAdded}
-                formData={referenceFormData}
-                onInputChange={handleReferenceFormInputChange}
-                onSubmit={handleSubmit}
-                referenceType={referenceType}
-            />
+            <div className="AppContainer">
+                <FormContainer
+                    onReferenceAdded={handleReferenceAdded}
+                    formData={referenceFormData}
+                    onInputChange={handleReferenceFormInputChange}
+                    onSubmit={handleSubmit}
+                    referenceType={referenceType}
+                />
+            </div>
             <br />
             <br />
             <ReferenceTable
