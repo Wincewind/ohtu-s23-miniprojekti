@@ -13,11 +13,16 @@ class TestReferenceService(unittest.TestCase):
 
         self.ref_ser = ReferenceServices(self.mock_dataprocessing)
 
-    def test_add_valid_reference(self):
+    def test_add_valid_book(self):
         self.assertTrue(self.ref_ser.add_reference(authors='Garwin, Robert',
                                                    title='Clean Code: A Handbook of Agile Software Craftsmanship',
                                                    year=2008, publisher='Prentice Hall', publisher_address='Bakerstreet 123',
                                                    ref_type="book"))
+
+    def test_add_valid_article(self):
+        self.assertTrue(self.ref_ser.add_reference(authors="Johnson, Mike",
+                                                   title='Clean Code: Magazine Version',
+                                                   journal="Best Magazine", year=2008, volume="2", number="3", pages="45-50", ref_type="article"))
 
     def test_add_invalid_reference_type(self):
         self.assertFalse(self.ref_ser.add_reference(authors='Garwin, Robert',
