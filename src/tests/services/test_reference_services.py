@@ -60,7 +60,7 @@ class TestReferenceService(unittest.TestCase):
     def test_add_article_with_str_type_year(self):
         self.assertFalse(self.ref_ser.add_reference(authors="Johnson, Mike",
                                                     title='Clean Code: Magazine Version',
-                                                    journal="Best Magazine", year="2008", volume="2", number="3", pages="45-50", ref_type="article"))
+                                                    journal="Best Magazine", year="20082", volume="2", number="3", pages="45-50", ref_type="article"))
 
     def test_add_article_with_invalid_author(self):
         self.assertFalse(self.ref_ser.add_reference(authors=None,
@@ -78,10 +78,10 @@ class TestReferenceService(unittest.TestCase):
                                                     journal="Best Magazine", year=2008, volume="2", number="3", pages="45-50", ref_type="article"))
 
     def test_get_all_references(self):
-        self.ref_ser.add_reference(self.ref_ser.add_reference(authors='Garwin, Robert',
-                                                              title='Clean Code: A Handbook of Agile Software Craftsmanship',
-                                                              year=2008, publisher='Prentice Hall', publisher_address='Bakerstreet 123',
-                                                              ref_type="book"))
+        self.ref_ser.add_reference(authors='Garwin, Robert',
+                                   title='Clean Code: A Handbook of Agile Software Craftsmanship',
+                                   year=2008, publisher='Prentice Hall', publisher_address='Bakerstreet 123',
+                                   ref_type="book")
         self.assertTrue(len(self.ref_ser.get_all_references()) != 0)
 
     def test_delete_all_references(self):
