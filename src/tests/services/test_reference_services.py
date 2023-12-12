@@ -93,3 +93,8 @@ class TestReferenceService(unittest.TestCase):
     def test_delete_references_by_id(self):
         self.ref_ser.delete_references_by_id([1, 2, 3])
         self.mock_dataprocessing.delete_references_by_id.assert_called()
+
+    def test_add_reference_with_incorrect_ref_type(self):
+        self.assertFalse(self.ref_ser.add_reference(authors="Johnson, Mike",
+                                                    title='Clean Code: Magazine Version',
+                                                    journal="Best Magazine", year=2008, volume="2", number="3", pages="45-50", ref_type="homework"))

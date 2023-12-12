@@ -11,11 +11,6 @@ class ReferenceServices:
     def add_reference(self, **kwargs) -> bool:
         """Adds a new reference to the Reference table."""
         try:
-
-            if kwargs["ref_type"] not in ["book", "article"]:
-                raise ValueError("Undefined Reference type:",
-                                 kwargs["ref_type"])
-
             # Check if a book or article with the same title already exists
             if len(kwargs["title"]) != 0 and self.get_reference_by_title(kwargs["title"]):
                 raise ValueError("Reference already exists in the database")
@@ -37,6 +32,10 @@ class ReferenceServices:
                 self.dp.add_reference(title=new_ref.title, type=new_ref.ref_type, author=new_ref.authors,
                                       journal=new_ref.journal, volume=new_ref.volume, number=new_ref.number,
                                       pages=new_ref.pages, year=new_ref.year)
+
+            else:
+                raise ValueError("Undefined Reference type:",
+                                 kwargs["ref_type"])
 
             return True
         except Exception as error:
